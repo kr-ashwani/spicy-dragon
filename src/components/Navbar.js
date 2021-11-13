@@ -18,7 +18,7 @@ const Navbar = ({ navColor, setSearchTerm }) => {
           <button style={{ backgroundColor: `var(--${navColor})` }} onClick={() => navigate('/createrecipe')}>Create Recipe</button>
         </div>
       </div>
-    </nav>
+    </nav >
   )
 }
 

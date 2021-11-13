@@ -13,9 +13,10 @@ function Recipe({ recipe, id, navColor }) {
     let ref = doc(db, 'recipe_list', id);
     try {
       await deleteDoc(ref);
+      alert("Reciped removed!")
     }
     catch (err) {
-      console.log(err.message);
+      alert("Failed to remove recipe!", err.message)
     }
   }
   function truncateString(inputString, noOfWords) {

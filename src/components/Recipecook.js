@@ -16,7 +16,7 @@ const Recipecook = () => {
           <h2>{recipe.title}</h2>
           <p>{recipe.time} minutes to make</p>
           <p>{recipe.ingredients}</p>
-          <p>{recipe.method}</p>
+          <p >{recipe.method}</p>
         </div>
       </div>)
   )

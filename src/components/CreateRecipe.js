@@ -10,17 +10,22 @@ const CreateRecipe = ({ navColor }) => {
     title: "",
     ingredients: "",
     method: '',
-    time: 1
+    time: 1,
+    count: 0
   })
   const [message, setMessage] = useState({
     success: null,
-    error: null
+    error: null,
+    warning: null,
+    recipeRepeat: false
   });
 
   useEffect(() => {
     setMessage({
       success: null,
-      error: null
+      error: null,
+      warning: null,
+      recipeRepeat: false
     });
   }, [values])
 
@@ -33,31 +38,50 @@ const CreateRecipe = ({ navColor }) => {
   function addItem(e) {
     e.preventDefault();
     ingref.current.focus();
-    const concatIngredient = ingredients.length === 0 ? ingref.current.value : ingref.current.value.length === 0 ? ingredients : `${ingredients}, ${ingref.current.value}`;
-    setValues({ ...values, ingredients: `${concatIngredient}` })
+    const concatIngredient = ingredients ? ingref.current.value ? `${ingredients}, ${ingref.current.value}` : ingredients : ingref.current.value;
+
+    if (ingref.current.value)
+      setValues({ ...values, ingredients: `${concatIngredient}` })
     ingref.current.value = "";
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (message.recipeRepeat)
+      return setMessage({ ...message, success: '', error: 'Resubmitting same recipe is not allowed' })
+    if (!title || !method || !ingredients) {
+      console.log("entered ");
+      switch (false) {
+        case Boolean(title):
+          return setMessage({ ...message, warning: "Title field is empty" })
+        case Boolean(ingredients):
+          return setMessage({ ...message, warning: "Requires atleast one Ingredient" })
+        case Boolean(method):
+          return setMessage({ ...message, warning: "Method field is empty" })
+        case Boolean(time):
+          return setMessage({ ...message, warning: "Time field is empty" })
+        default:
+      }
+    }
     const ref = collection(db, 'recipe_list')
     try {
       await addDoc(ref, {
         recipe: values
       })
-      setMessage({ ...message, success: "Recipe successfully added!" })
+      setMessage({ ...message, success: "Recipe successfully added!", recipeRepeat: true })
     }
     catch (err) {
       setMessage({ ...message, error: err.message })
     }
   }
+
   return (
     <div className="recipeform" onSubmit={handleSubmit}>
       <form >
         <h2>Add a New Recipe</h2>
         <div className="field">
           <label htmlFor="title">Recipe title:</label>
-          <input required name="title" onChange={handleChange("title")} value={title} type="text" id="title" />
+          <input name="title" onChange={handleChange("title")} value={title} type="text" id="title" />
         </div>
         <div className="field">
           <label htmlFor="ingredients" name="ingredients">Recipe Ingredients</label>
@@ -69,12 +93,12 @@ const CreateRecipe = ({ navColor }) => {
         </div >
         <div className="field">
           <label htmlFor="method">Recipe Method:</label>
-          <textarea required onChange={handleChange("method")} value={method} form="recipeform" name="method">
+          <textarea onChange={handleChange("method")} value={method} form="recipeform" name="method">
           </textarea>
         </div>
         <div className="field">
           <label htmlFor="time">Cooking time (minutes):</label>
-          <input required onChange={handleChange("time")} value={time} type="number" min="1" max="10000" name="time" />
+          <input onChange={handleChange("time")} value={time} type="number" min="1" max="10000" name="time" />
         </div>
         <Alert message={message} />
         <button style={{ backgroundColor: `${navColor}`, color: "#fff" }} className="submit" >submit</button>

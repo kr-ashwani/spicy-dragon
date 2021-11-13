@@ -14,6 +14,12 @@ const Alert = ({ message }) => {
         <i className="fas fa-exclamation-circle"></i><span>Error</span>
         <p>{message.error}</p>
       </div>)
+  else if (message.warning)
+    return (
+      <div className="warningMessage messageInfo">
+        <i className="fas fa-exclamation-circle"></i><span>Warning</span>
+        <p>{message.warning}</p>
+      </div>)
 
   return <p></p>
 }

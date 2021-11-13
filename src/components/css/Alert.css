@@ -22,6 +22,7 @@
 .successMessage > p,
 .successMessage > span {
   color: #1da824;
+  color: #227700;
 }
 .errorMessage {
   background-color: #ffbaba;
@@ -30,4 +31,13 @@
 .errorMessage > p,
 .errorMessage > span {
   color: #dd3d32;
+  color: #d8000c;
+}
+.warningMessage {
+  background-color: #feefb3;
+}
+.warningMessage > i,
+.warningMessage > p,
+.warningMessage > span {
+  color: #9f6000;
 }

@@ -18,12 +18,3 @@ const Restaurant = ({ searchTerm, navColor }) => {
 
 export default Restaurant
 
-
-// const titleArray = recipe.title.split('');
-// const searchArray = searchTerm.split('');
-// console.log(titleArray, searchArray);
-// let match = false;
-// searchArray.forEach((element, index) => {
-//   match = element === titleArray[index] ? true : false;
-// });
-// return match
