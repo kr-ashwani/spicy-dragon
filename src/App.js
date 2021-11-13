@@ -1,24 +1,25 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router';
 import './App.css';
+import CreateRecipe from './components/CreateRecipe';
+import Navbar from './components/Navbar';
+import Recipecook from './components/Recipecook';
+import Restaurant from './components/Restaurant';
+import Theme from './components/Theme';
+import React, { useState } from 'react';
 
 function App() {
+  const [navColor, setNavColor] = useState("purple");
+  const [searchTerm, setSearchTerm] = useState('');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar navColor={navColor} setSearchTerm={setSearchTerm} />
+      <Theme setNavColor={setNavColor} />
+      <Routes>
+        <Route path="/" element={<Restaurant searchTerm={searchTerm} navColor={navColor} />}></Route>
+        <Route path="/createrecipe" element={<CreateRecipe navColor={navColor} />}></Route>
+        <Route path="/recipe/:recipeid" element={<Recipecook />}></Route>
+      </Routes>
+    </>
   );
 }
 

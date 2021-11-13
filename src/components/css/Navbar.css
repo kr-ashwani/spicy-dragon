@@ -1,0 +1,42 @@
+nav {
+  color: #fff;
+  height: 60px;
+  background-color: #59249c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 400ms ease-in-out;
+}
+.navbar {
+  margin: 0 10px;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+}
+.navbar input[type="text"] {
+  margin: 5px;
+  outline: none;
+  padding: 3px;
+  border-radius: 3px;
+  border: 2px solid #aaa;
+}
+.navbar input[type="text"]:focus {
+  border: 2px solid rgb(41, 39, 39);
+}
+
+.nav_search {
+  display: flex;
+  align-items: center;
+}
+.nav_search > button {
+  background-color: #59249c;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 3px;
+  border: 1px solid rgb(212, 209, 209);
+  margin-left: 20px;
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 400ms ease-in-out;
+}

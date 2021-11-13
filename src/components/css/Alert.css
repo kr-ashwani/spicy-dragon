@@ -1,0 +1,33 @@
+.messageInfo {
+  margin: 10px auto;
+  border-radius: 5px;
+  padding: 8px;
+}
+.messageInfo > i {
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+.messageInfo > span {
+  font-weight: 500;
+  position: relative;
+  top: -1.2px;
+}
+.messageInfo > p {
+  margin-left: 25px;
+}
+.successMessage {
+  background-color: #dff2bf;
+}
+.successMessage > i,
+.successMessage > p,
+.successMessage > span {
+  color: #1da824;
+}
+.errorMessage {
+  background-color: #ffbaba;
+}
+.errorMessage > i,
+.errorMessage > p,
+.errorMessage > span {
+  color: #dd3d32;
+}

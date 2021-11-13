@@ -1,0 +1,72 @@
+.recipe_item {
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 200ms ease-in-out;
+  border-radius: 5px;
+}
+.recipe_card {
+  width: 85%;
+  margin: 20px auto;
+}
+.recipe_card > * {
+  margin: 10px auto;
+}
+.recipe_card > p:nth-child(2) {
+  color: #8f9091;
+}
+.recipe_card > p:nth-child(1) {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.recipe_card > button {
+  transition: background-color 500ms ease-in-out;
+  display: block;
+  margin: 20px auto 10px;
+  font-size: 1.2rem;
+  padding: 5px;
+  border-radius: 5px;
+  border: 0px;
+  background-color: #e2e2e2;
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+}
+.recipe_card > button:hover {
+  transform: scale(1.04);
+}
+.recipe_item:hover {
+  cursor: pointer;
+  transform: scale(1.04);
+}
+.fa-trash-alt {
+  font-size: 1.2rem;
+  color: #ff453c;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(100%, -100%);
+}
+.recipe_item:hover > .fa-trash-alt {
+  animation: trashMovement 500ms ease-in-out forwards;
+}
+
+@keyframes trashMovement {
+  0% {
+    transform: translate(100%, -100%);
+  }
+  30% {
+    transform: translate(-50%, 50%);
+  }
+  40% {
+    transform: translate(-50%, 50%);
+  }
+  55% {
+    transform: translate(-50%, 50%) rotate(25deg);
+  }
+  85% {
+    transform: translate(-50%, 50%) rotate(-25deg);
+  }
+  100% {
+    transform: translate(-50%, 50%);
+  }
+}

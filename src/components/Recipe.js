@@ -1,0 +1,38 @@
+import { deleteDoc, doc } from '@firebase/firestore'
+import React from 'react'
+import { useNavigate } from 'react-router'
+import { db } from '../firebase/firebaseConfig'
+import './css/Recipe.css'
+
+function Recipe({ recipe, id, navColor }) {
+  const navigate = useNavigate()
+  function cookFunction() {
+    navigate(`/recipe/${id}`)
+  }
+  async function removeRecipe() {
+    let ref = doc(db, 'recipe_list', id);
+    try {
+      await deleteDoc(ref);
+    }
+    catch (err) {
+      console.log(err.message);
+    }
+  }
+  function truncateString(inputString, noOfWords) {
+    const truncated = inputString.trim().split(" ").slice(0, noOfWords).join(' ').concat('...');
+    return truncated;
+  }
+  return (
+    <div className="recipe_item" >
+      <i onClick={removeRecipe} className="fas fa-trash-alt"></i>
+      <div className="recipe_card">
+        <p>{recipe.title}</p>
+        <p>{recipe.time} minutes to make</p>
+        <p>{truncateString(recipe.method, 20)}</p>
+        <button onClick={cookFunction} style={{ backgroundColor: `${navColor}`, color: "#fff" }}>Cook This</button>
+      </div>
+    </div>
+  )
+}
+
+export default Recipe

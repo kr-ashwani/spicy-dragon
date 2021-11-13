@@ -1,0 +1,42 @@
+:root {
+  --purple: #57249c;
+  --red: #b90234;
+  --green: #249c6d;
+}
+
+.theme {
+  max-width: 1200px;
+  padding: 0px 10px;
+  margin: 0 auto;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.theme > i {
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+.color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: aqua;
+  cursor: pointer;
+}
+
+.color_box {
+  width: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.color:nth-child(1) {
+  background-color: var(--purple);
+}
+.color:nth-child(2) {
+  background-color: var(--green);
+}
+.color:nth-child(3) {
+  background-color: var(--red);
+}

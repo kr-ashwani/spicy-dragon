@@ -1,0 +1,9 @@
+.recipelist {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  max-width: 1200px;
+  margin: 30px auto 50px;
+  padding: 0 10px;
+  gap: 30px;
+}

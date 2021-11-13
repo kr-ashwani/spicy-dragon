@@ -1,0 +1,68 @@
+.recipeform {
+  max-width: 400px;
+  margin: 0 auto;
+}
+.recipeform form h2 {
+  text-align: center;
+}
+.recipeform label,
+.recipeform .label {
+  padding-left: 2px;
+  color: #5b5c5e;
+  font-size: 0.9rem;
+}
+.recipeform input {
+  font-size: 1rem;
+}
+
+.recipeform input {
+  display: block;
+  width: 100%;
+  margin: 0px;
+  outline: none;
+  padding: 5px;
+  border-radius: 4px;
+  border: 2px solid #aaa;
+}
+.recipeform input:focus {
+  border: 2px solid rgb(29, 28, 28);
+}
+.recipeform textarea {
+  font-size: 1rem;
+  display: block;
+  width: 100%;
+  padding: 5px;
+  border-radius: 4px;
+  outline: none;
+}
+.recipeform textarea:focus {
+  border: 2px solid rgb(29, 28, 28);
+}
+#ingredients {
+  display: inline-block;
+  width: 90%;
+}
+.field {
+  margin: 20px auto;
+}
+.field > div {
+  display: flex;
+}
+.field button,
+.recipeform button {
+  background-color: #59249c;
+  color: #fff;
+  font-size: 1rem;
+  border: 0;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 0 10px;
+  cursor: pointer;
+  transition: background-color 500ms ease-in-out;
+}
+.recipeform .submit {
+  font-size: 1.1rem;
+  display: block;
+  height: 2rem;
+  margin: 0 auto;
+}
