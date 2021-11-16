@@ -66,3 +66,9 @@
   height: 2rem;
   margin: 0 auto;
 }
+
+@media only screen and (max-width: 600px) {
+  .recipeform {
+    padding: 0 30px;
+  }
+}

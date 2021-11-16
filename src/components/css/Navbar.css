@@ -7,6 +7,14 @@ nav {
   justify-content: center;
   transition: background-color 400ms ease-in-out;
 }
+.search {
+  position: relative;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .navbar {
   margin: 0 10px;
   width: 100%;
@@ -26,6 +34,7 @@ nav {
 }
 
 .nav_search {
+  position: relative;
   display: flex;
   align-items: center;
 }
@@ -39,4 +48,28 @@ nav {
   padding: 5px;
   cursor: pointer;
   transition: background-color 400ms ease-in-out;
+}
+@media only screen and (max-width: 1300px) {
+  .navbar {
+    padding: 0 50px;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .navbar input[type="text"] {
+    display: none;
+  }
+  .nav_search > label {
+    display: none;
+  }
+  .navbar h1 {
+    font-size: 1.3rem;
+  }
+  .navbar {
+    padding: 0 10px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .navbar {
+    padding: 0;
+  }
 }

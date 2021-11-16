@@ -15,7 +15,7 @@ const Navbar = ({ navColor, setSearchTerm }) => {
         <div className="nav_search">
           <label htmlFor="search">Search: </label>
           <input onChange={() => { setSearchTerm(search.current.value); }} ref={search} type="text" id="search" />
-          <button style={{ backgroundColor: `var(--${navColor})` }} onClick={() => navigate('/createrecipe')}>Create Recipe</button>
+          <button style={{ backgroundColor: `var(--${navColor})` }} onClick={() => navigate('/createrecipe')}>Add Recipe</button>
         </div>
       </div>
     </nav >

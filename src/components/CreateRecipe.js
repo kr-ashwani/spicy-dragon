@@ -38,7 +38,7 @@ const CreateRecipe = ({ navColor }) => {
   function addItem(e) {
     e.preventDefault();
     ingref.current.focus();
-    const concatIngredient = ingredients ? ingref.current.value ? `${ingredients}, ${ingref.current.value}` : ingredients : ingref.current.value;
+    const concatIngredient = ingredients ? ingref.current.value.trim() ? `${ingredients}, ${ingref.current.value.trim()}` : ingredients : ingref.current.value.trim();
 
     if (ingref.current.value)
       setValues({ ...values, ingredients: `${concatIngredient}` })
@@ -49,16 +49,15 @@ const CreateRecipe = ({ navColor }) => {
     e.preventDefault();
     if (message.recipeRepeat)
       return setMessage({ ...message, success: '', error: 'Resubmitting same recipe is not allowed' })
-    if (!title || !method || !ingredients) {
-      console.log("entered ");
+    if (!title.trim() || !method.trim() || !ingredients.trim()) {
       switch (false) {
-        case Boolean(title):
+        case Boolean(title.trim()):
           return setMessage({ ...message, warning: "Title field is empty" })
         case Boolean(ingredients):
           return setMessage({ ...message, warning: "Requires atleast one Ingredient" })
-        case Boolean(method):
+        case Boolean(method.trim()):
           return setMessage({ ...message, warning: "Method field is empty" })
-        case Boolean(time):
+        case Boolean(time.trim()):
           return setMessage({ ...message, warning: "Time field is empty" })
         default:
       }

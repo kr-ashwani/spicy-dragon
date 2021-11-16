@@ -4,6 +4,7 @@
   background-color: #fff;
   transition: transform 200ms ease-in-out;
   border-radius: 5px;
+  box-shadow: 5px 5px 10px -5px rgba(104, 102, 102, 0.4);
 }
 .recipe_card {
   width: 85%;
@@ -67,6 +68,14 @@
     transform: translate(-50%, 50%) rotate(-25deg);
   }
   100% {
+    transform: translate(-50%, 50%);
+  }
+}
+@media only screen and (max-width: 600px) {
+  .recipe_item:hover > .fa-trash-alt {
+    animation: none;
+  }
+  .fa-trash-alt {
     transform: translate(-50%, 50%);
   }
 }

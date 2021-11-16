@@ -1,16 +1,18 @@
 .food_des {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 50px 50px;
+}
+.foodContainer {
   position: relative;
   padding: 0.1px;
   max-width: 1200px;
   width: 98%;
   margin: 50px auto;
-  background-color: #fff;
-  border-radius: 5px;
 }
 .food_card {
   text-align: center;
-  width: 80%;
-  margin: 60px auto 40px;
+  /* width: 80%; */
 }
 .food_card > h2 {
   margin-bottom: 30px;
@@ -30,4 +32,25 @@
   cursor: pointer;
   left: 10px;
   font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 1300px) {
+  .food_des {
+    margin: 0 50px;
+  }
+  .food_card {
+    margin: 0;
+  }
+  .food_des > i {
+    left: 50px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .food_des {
+    margin: 0 20px;
+    padding: 50px 20px;
+  }
+  .food_des > i {
+    left: 20px;
+  }
 }
