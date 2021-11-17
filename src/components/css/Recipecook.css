@@ -47,10 +47,17 @@
 }
 @media only screen and (max-width: 600px) {
   .food_des {
-    margin: 0 20px;
+    margin: 0 10px;
     padding: 50px 20px;
   }
+
   .food_des > i {
     left: 20px;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .food_des {
+    margin: 0 10px;
+    padding: 50px 20px;
   }
 }

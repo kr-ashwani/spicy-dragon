@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router';
 import "./css/Navbar.css"
+// import "./database.js"
 
 const Navbar = ({ navColor, setSearchTerm }) => {
   const navigate = useNavigate();
