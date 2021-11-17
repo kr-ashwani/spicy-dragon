@@ -28,10 +28,11 @@
 }
 .food_des > i {
   position: absolute;
-  top: -40px;
+  top: -50px;
   cursor: pointer;
   left: 10px;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  font-weight: 900;
 }
 
 @media only screen and (max-width: 1300px) {
