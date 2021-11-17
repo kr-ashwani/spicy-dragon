@@ -6,6 +6,8 @@ import './css/Recipe.css'
 
 function Recipe({ recipe, id, navColor }) {
   const navigate = useNavigate()
+
+
   function cookFunction() {
     navigate(`/recipe/${id}`)
   }
@@ -20,7 +22,10 @@ function Recipe({ recipe, id, navColor }) {
     }
   }
   function truncateString(inputString, noOfWords) {
-    const truncated = inputString.trim().split(" ").slice(0, noOfWords).join(' ').concat('...');
+    let arrayOfWords = inputString.trim().split(" ");
+    if (arrayOfWords.length < noOfWords)
+      return inputString
+    const truncated = arrayOfWords.slice(0, noOfWords).join(' ').concat('...');
     return truncated;
   }
   return (
@@ -29,7 +34,7 @@ function Recipe({ recipe, id, navColor }) {
       <div className="recipe_card">
         <p>{recipe.title}</p>
         <p>{recipe.time} minutes to make</p>
-        <p>{truncateString(recipe.method, 20)}</p>
+        <p className="recipeMethod">{truncateString(recipe.method, 20)}</p>
         <button onClick={cookFunction} style={{ backgroundColor: `${navColor}`, color: "#fff" }}>Cook This</button>
       </div>
     </div>

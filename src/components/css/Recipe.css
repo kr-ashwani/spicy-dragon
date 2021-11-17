@@ -7,23 +7,28 @@
   box-shadow: 5px 5px 10px -5px rgba(104, 102, 102, 0.4);
 }
 .recipe_card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   width: 85%;
-  margin: 20px auto;
+  margin: 0px auto;
 }
 .recipe_card > * {
-  margin: 10px auto;
+  margin: 0 0 10px;
 }
+
 .recipe_card > p:nth-child(2) {
   color: #8f9091;
 }
 .recipe_card > p:nth-child(1) {
+  margin-top: 20px;
   font-size: 1.2rem;
   font-weight: 500;
 }
 .recipe_card > button {
   transition: background-color 500ms ease-in-out;
   display: block;
-  margin: 20px auto 10px;
+  margin: 10px auto 20px;
   font-size: 1.2rem;
   padding: 5px;
   border-radius: 5px;
@@ -31,6 +36,9 @@
   background-color: #e2e2e2;
   cursor: pointer;
   transition: transform 200ms ease-in-out;
+}
+.recipeMethod {
+  flex-grow: 1;
 }
 .recipe_card > button:hover {
   transform: scale(1.04);
