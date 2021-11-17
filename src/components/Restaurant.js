@@ -2,7 +2,7 @@ import React from 'react'
 import { useCollection } from '../hooks/useCollection'
 import "./css/Restaurant.css"
 import Recipe from './Recipe';
-import "./database.js"
+// import "./database.js"
 
 const Restaurant = ({ searchTerm, navColor }) => {
   const { documents: recipeList } = useCollection('recipe_list');
