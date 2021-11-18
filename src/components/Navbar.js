@@ -1,14 +1,16 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router';
+import { useTheme } from '../hooks/useTheme';
 import "./css/Navbar.css"
 // import "./database.js"
 
-const Navbar = ({ navColor, setSearchTerm }) => {
+const Navbar = ({ setSearchTerm }) => {
+  const { navColor } = useTheme();
   const navigate = useNavigate();
   const search = useRef();
 
   return (
-    <nav style={{ backgroundColor: `var(--${navColor})` }}>
+    <nav style={{ backgroundColor: `${navColor}` }}>
       <div className="navbar">
         <div className="logo">
           <h1 onClick={() => navigate("/")} style={{ cursor: "pointer" }}>Spicy Dragon</h1>
@@ -16,7 +18,7 @@ const Navbar = ({ navColor, setSearchTerm }) => {
         <div className="nav_search">
           <label htmlFor="search">Search: </label>
           <input onChange={() => { setSearchTerm(search.current.value); }} ref={search} type="text" id="search" />
-          <button style={{ backgroundColor: `var(--${navColor})` }} onClick={() => navigate('/createrecipe')}>Add Recipe</button>
+          <button style={{ backgroundColor: `${navColor}` }} onClick={() => navigate('/createrecipe')}>Add Recipe</button>
         </div>
       </div>
     </nav >

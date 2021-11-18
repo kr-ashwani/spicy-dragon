@@ -5,6 +5,7 @@
 }
 
 .theme {
+  position: relative;
   max-width: 1200px;
   padding: 0px 10px;
   margin: 0 auto;
@@ -12,10 +13,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: background-color 300ms ease-in-out;
 }
+
 .theme > i {
   font-size: 1.4rem;
   cursor: pointer;
+  transition: color 300ms ease-in-out;
+}
+.theme.dark > i {
+  color: #fff;
 }
 .color {
   width: 20px;
@@ -40,19 +47,34 @@
 .color:nth-child(3) {
   background-color: var(--red);
 }
+.theme > button {
+  position: absolute;
+  bottom: -40px;
+  left: -1px;
+  height: 40px;
+  width: 40px;
+  background-color: #59249c;
+  color: #fff;
+  font-size: 1.3rem;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 500ms ease-in-out;
+}
 
 @media only screen and (max-width: 1300px) {
   .theme {
     padding: 0 60px;
+  }
+  .theme > button {
+    left: 50px;
   }
 }
 @media only screen and (max-width: 700px) {
   .theme {
     padding: 0 20px;
   }
-}
-@media only screen and (max-width: 450px) {
-  .theme {
-    padding: 0 20px;
+  .theme > button {
+    left: 10px;
   }
 }

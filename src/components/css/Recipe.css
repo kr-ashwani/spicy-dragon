@@ -2,9 +2,15 @@
   position: relative;
   overflow: hidden;
   background-color: #fff;
-  transition: transform 200ms ease-in-out;
+  transition: background-color 100ms ease-in-out, transform 200ms ease-in-out,
+    color 100ms ease-in-out;
   border-radius: 5px;
   box-shadow: 5px 5px 10px -5px rgba(104, 102, 102, 0.4);
+}
+.recipe_item.dark {
+  background-color: #383838;
+  color: #fff;
+  box-shadow: 5px 5px 10px -5px rgb(24, 20, 20, 52%);
 }
 .recipe_card {
   display: flex;
@@ -20,13 +26,15 @@
 .recipe_card > p:nth-child(2) {
   color: #8f9091;
 }
+.recipe_card > p:nth-child(2).dark {
+  color: #b4b0b0c2;
+}
 .recipe_card > p:nth-child(1) {
   margin-top: 20px;
   font-size: 1.2rem;
   font-weight: 500;
 }
 .recipe_card > button {
-  transition: background-color 500ms ease-in-out;
   display: block;
   margin: 10px auto 20px;
   font-size: 1.2rem;
@@ -35,7 +43,7 @@
   border: 0px;
   background-color: #e2e2e2;
   cursor: pointer;
-  transition: transform 200ms ease-in-out;
+  transition: transform 200ms ease-in-out, background-color 500ms ease-in-out;
 }
 .recipeMethod {
   flex-grow: 1;

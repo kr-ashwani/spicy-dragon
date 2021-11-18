@@ -2,11 +2,13 @@ import { deleteDoc, doc } from '@firebase/firestore'
 import React from 'react'
 import { useNavigate } from 'react-router'
 import { db } from '../firebase/firebaseConfig'
+import { useTheme } from '../hooks/useTheme'
 import './css/Recipe.css'
 
-function Recipe({ recipe, id, navColor }) {
+function Recipe({ recipe, id }) {
+  const { mode } = useTheme();
   const navigate = useNavigate()
-
+  const { navColor } = useTheme();
 
   function cookFunction() {
     navigate(`/recipe/${id}`)
@@ -29,15 +31,15 @@ function Recipe({ recipe, id, navColor }) {
     return truncated;
   }
   return (
-    <div className="recipe_item" >
+    <div className={`recipe_item ${mode}`} >
       <i onClick={removeRecipe} className="fas fa-trash-alt"></i>
       <div className="recipe_card">
         <p>{recipe.title}</p>
-        <p>{recipe.time} minutes to make</p>
+        <p className={`${mode}`}>{recipe.time} minutes to make</p>
         <p className="recipeMethod">{truncateString(recipe.method, 20)}</p>
         <button onClick={cookFunction} style={{ backgroundColor: `${navColor}`, color: "#fff" }}>Cook This</button>
       </div>
-    </div>
+    </ div>
   )
 }
 

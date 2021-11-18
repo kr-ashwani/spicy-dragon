@@ -11,6 +11,7 @@ body {
   background-color: #dfdedf;
   color: #000;
   font-family: "Poppins", sans-serif;
+  transition: background-color 100ms ease-in-out;
 }
 
 #root {

@@ -1,10 +1,12 @@
 import { addDoc, collection } from '@firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react'
 import { db } from '../firebase/firebaseConfig';
+import { useTheme } from '../hooks/useTheme';
 import Alert from './Alert';
 import './css/CreateRecipe.css'
 
-const CreateRecipe = ({ navColor }) => {
+const CreateRecipe = () => {
+  const { navColor, mode } = useTheme();
   let ingref = useRef();
   const [values, setValues] = useState({
     title: "",
@@ -77,26 +79,26 @@ const CreateRecipe = ({ navColor }) => {
   return (
     <div className="recipeform" onSubmit={handleSubmit}>
       <form >
-        <h2>Add a New Recipe</h2>
+        <h2 className={`${mode}`}>Add a New Recipe</h2>
         <div className="field">
-          <label htmlFor="title">Recipe title:</label>
+          <label className={`${mode}`} htmlFor="title">Recipe title:</label>
           <input name="title" onChange={handleChange("title")} value={title} type="text" id="title" />
         </div>
         <div className="field">
-          <label htmlFor="ingredients" name="ingredients">Recipe Ingredients</label>
+          <label className={`${mode}`} htmlFor="ingredients" name="ingredients">Recipe Ingredients</label>
           <div>
             <input ref={ingref} type="text" id="ingredients" />
             <button style={{ backgroundColor: `${navColor}`, color: "#fff" }} onClick={addItem}>add</button>
           </div>
-          <p className="label">Current ingredients: {ingredients}</p>
+          <p className={`label ${mode}`}>Current ingredients: {ingredients}</p>
         </div >
         <div className="field">
-          <label htmlFor="method">Recipe Method:</label>
+          <label className={`${mode}`} htmlFor="method">Recipe Method:</label>
           <textarea onChange={handleChange("method")} value={method} form="recipeform" name="method">
           </textarea>
         </div>
         <div className="field">
-          <label htmlFor="time">Cooking time (minutes):</label>
+          <label className={`${mode}`} htmlFor="time">Cooking time (minutes):</label>
           <input onChange={handleChange("time")} value={time} type="number" min="1" max="10000" name="time" />
         </div>
         <Alert message={message} />

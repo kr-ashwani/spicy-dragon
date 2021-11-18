@@ -8,15 +8,14 @@ import Theme from './components/Theme';
 import React, { useState } from 'react';
 
 function App() {
-  const [navColor, setNavColor] = useState("purple");
   const [searchTerm, setSearchTerm] = useState('');
   return (
     <>
-      <Navbar navColor={navColor} setSearchTerm={setSearchTerm} />
-      <Theme setNavColor={setNavColor} />
+      <Navbar setSearchTerm={setSearchTerm} />
+      <Theme />
       <Routes>
-        <Route path="/" element={<Restaurant searchTerm={searchTerm} navColor={navColor} />}></Route>
-        <Route path="/createrecipe" element={<CreateRecipe navColor={navColor} />}></Route>
+        <Route path="/" element={<Restaurant searchTerm={searchTerm} />}></Route>
+        <Route path="/createrecipe" element={<CreateRecipe />}></Route>
         <Route path="/recipe/:recipeid" element={<Recipecook />}></Route>
       </Routes>
     </>
