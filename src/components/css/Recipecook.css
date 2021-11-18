@@ -59,6 +59,14 @@
     left: 50px;
   }
 }
+.food_card {
+  line-height: 30px;
+}
+.food_card > p:nth-child(4) {
+  font-weight: 300;
+  font-size: 1.19rem;
+  text-align: left;
+}
 @media only screen and (max-width: 600px) {
   .food_des {
     margin: 0 10px;

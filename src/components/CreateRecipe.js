@@ -59,7 +59,7 @@ const CreateRecipe = () => {
           return setMessage({ ...message, warning: "Requires atleast one Ingredient" })
         case Boolean(method.trim()):
           return setMessage({ ...message, warning: "Method field is empty" })
-        case Boolean(time.trim()):
+        case Boolean(time):
           return setMessage({ ...message, warning: "Time field is empty" })
         default:
       }
