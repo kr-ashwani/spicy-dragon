@@ -1,5 +1,7 @@
-import { addDoc, collection } from '@firebase/firestore';
+import { addDoc, arrayUnion, collection, doc, Timestamp, updateDoc } from '@firebase/firestore';
+import { CircularProgress } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react'
+import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase/firebaseConfig';
 import { useTheme } from '../hooks/useTheme';
 import Alert from './Alert';
@@ -7,6 +9,8 @@ import './css/CreateRecipe.css'
 
 const CreateRecipe = () => {
   const { navColor, mode } = useTheme();
+  const { currentUser } = useAuth()
+  const [isLoading, setIsLoading] = useState(false);
   let ingref = useRef();
   const [values, setValues] = useState({
     title: "",
@@ -64,14 +68,23 @@ const CreateRecipe = () => {
         default:
       }
     }
-    const ref = collection(db, 'recipe_list')
+    const recipeRef = collection(db, 'recipe_list')
     try {
-      await addDoc(ref, {
-        recipe: values
+      setIsLoading(!isLoading)
+      let { count, ...recipeData } = values;
+      let createdTime = Timestamp.fromDate(new Date())
+      let authorUid = currentUser.uid;
+      const recipeDoc = await addDoc(recipeRef, { ...recipeData, createdTime, authorUid })
+
+      await updateDoc(doc(db, "users", currentUser.uid), {
+        recipeAdded: arrayUnion(recipeDoc.id)
       })
+      // await setDoc(doc(db, "recipe_list", currentUser.uid), { ...recipeData, createdTime })
       setMessage({ ...message, success: "Recipe successfully added!", recipeRepeat: true })
+      setIsLoading((loading) => !loading)
     }
     catch (err) {
+      setIsLoading((loading) => !loading)
       setMessage({ ...message, error: err.message })
     }
   }
@@ -102,7 +115,11 @@ const CreateRecipe = () => {
           <input onChange={handleChange("time")} value={time} type="number" min="1" max="10000" name="time" />
         </div>
         <Alert message={message} />
-        <button style={{ backgroundColor: `${navColor}`, color: "#fff" }} className="submit" >submit</button>
+        {
+          !isLoading ?
+            <button style={{ backgroundColor: `${navColor}`, color: "#fff" }} className="submit" >submit</button>
+            : <button disabled className="signin loading" style={{ margin: "auto", width: "72px", height: "32px", backgroundColor: `${navColor}40`, color: "#fff" }} ><CircularProgress style={{ marginTop: "8px", width: "15px", height: "15px" }} /></button>
+        }
       </form >
     </div >
   )

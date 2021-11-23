@@ -1,0 +1,129 @@
+.loginForm {
+  width: 90%;
+  height: 90%;
+  color: #000;
+  /* background-color: aqua; */
+}
+.loginForm form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loginForm form h1 {
+  margin: 20px 0 25px;
+}
+.loginForm .field {
+  width: 85%;
+  margin: 0 0 15px;
+}
+.loginForm label {
+  display: inline-block;
+  margin-bottom: 2px;
+}
+.loginForm input {
+  display: block;
+  width: 100%;
+  margin: 0px;
+  outline: none;
+  padding: 5px;
+  border-radius: 4px;
+  border: 2px solid #aaa;
+}
+.loginForm button {
+  color: #fff;
+  font-size: 1rem;
+  border: 1px solid rgb(212, 209, 209);
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 400ms ease-in-out;
+}
+.googleSignin > button {
+  background-color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1.6px solid #bc4977;
+}
+.loginForm .signin {
+  padding: 5px 10px !important;
+  margin: 5px 0 10px;
+}
+.googleSignin > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.googleImg > img {
+  width: 25px;
+  margin-right: 5px;
+}
+.loginForm .createAcc {
+  margin: 10px 0 15px;
+}
+.createAcc > span {
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+  color: var(--purple);
+  border-bottom: 2px solid var(--purple);
+}
+.googleSignin {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  border-top: 1px solid #c2c2c294;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.googleSignin > p {
+  position: absolute;
+  top: -14px;
+  color: #c2c2c2;
+  width: 30px;
+  background-color: #fff;
+  text-align: center;
+  user-select: none;
+}
+.loginError {
+  margin: 0 auto;
+  width: 85%;
+  font-size: 0.8rem;
+  color: #d8000c;
+  background-color: #ffbaba;
+  padding: 5px;
+  border-radius: 3px;
+}
+.login form h1 {
+  margin: 0px 0 23.5px;
+}
+.signup .field {
+  margin: 0 0 5px;
+}
+.signup .signin {
+  margin: 9px 0 5px;
+}
+.signup .createAcc {
+  margin: 5px 0 15px;
+}
+.loginForm .forgotPassword {
+  margin-left: 160px;
+  width: 130px;
+  text-align: right;
+  color: #27abfa;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.forgotPassword:hover {
+  text-decoration: underline solid #0a9ff5;
+}
+.login .field:nth-child(3) {
+  margin-bottom: 10px;
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}

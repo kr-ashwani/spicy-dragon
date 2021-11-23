@@ -20,7 +20,7 @@
   /* width: 80%; */
 }
 .food_card > h2 {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 .food_card > p:nth-child(2) {
   transition: color 100ms ease-in-out;

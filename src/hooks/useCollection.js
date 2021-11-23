@@ -1,4 +1,4 @@
-import { collection, onSnapshot } from '@firebase/firestore';
+import { collection, onSnapshot, orderBy, query } from '@firebase/firestore';
 import { useEffect, useState } from 'react'
 import { db } from '../firebase/firebaseConfig';
 
@@ -7,8 +7,13 @@ export const useCollection = (c) => {
 
   useEffect(() => {
     let ref = collection(db, c)
+    let docsByTimestamp;
+    if (c === 'recipe_list')
+      docsByTimestamp = query(ref, orderBy("createdTime", "desc"));
+    else
+      docsByTimestamp = ref;
 
-    const unsub = onSnapshot(ref, (snapshot) => {
+    const unsub = onSnapshot(docsByTimestamp, (snapshot) => {
       const results = [];
       snapshot.docs.forEach((doc) => {
         results.push({ id: doc.id, ...doc.data() })

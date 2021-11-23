@@ -6,17 +6,24 @@ import Recipecook from './components/Recipecook';
 import Restaurant from './components/Restaurant';
 import Theme from './components/Theme';
 import React, { useState } from 'react';
+import { ModalProvider } from './context/ModalContext';
+import ResetPassword from './components/ResetPassword';
+import UserDashboard from './components/UserDashboard';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   return (
     <>
-      <Navbar setSearchTerm={setSearchTerm} />
+      <ModalProvider>
+        <Navbar setSearchTerm={setSearchTerm} />
+      </ModalProvider>
       <Theme />
       <Routes>
         <Route path="/" element={<Restaurant searchTerm={searchTerm} />}></Route>
         <Route path="/createrecipe" element={<CreateRecipe />}></Route>
         <Route path="/recipe/:recipeid" element={<Recipecook />}></Route>
+        <Route path="/resetpassword" element={<ResetPassword />}></Route>
+        <Route path="/user" element={<UserDashboard />}></Route>
       </Routes>
     </>
   );

@@ -8,13 +8,13 @@ import Recipe from './Recipe';
 const Restaurant = ({ searchTerm }) => {
   const { mode } = useTheme();
   const { documents: recipeList } = useCollection('recipe_list');
-  let filteredList = recipeList && recipeList.filter(({ recipe }) => recipe.title.toLowerCase().includes(searchTerm.toLowerCase()))
+  let filteredList = recipeList && recipeList.filter((recipe) => recipe.title.toLowerCase().includes(searchTerm.trim().toLowerCase()))
 
   return (
     recipeList && (<div className={`recipelist ${mode}`} >
       {
-        filteredList.map(({ recipe, id }) => {
-          return <Recipe key={id} recipe={recipe} id={id} />
+        filteredList.map((recipe) => {
+          return <Recipe key={recipe.id} recipe={recipe} id={recipe.id} />
         })
       }
     </div >)

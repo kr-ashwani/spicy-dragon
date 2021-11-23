@@ -8,7 +8,7 @@ const Recipecook = () => {
   const { mode } = useTheme();
   const { documents: recipeList } = useCollection('recipe_list');
   const { recipeid } = useParams();
-  const recipe = recipeList && recipeList.find((element) => element.id === recipeid).recipe
+  const recipe = recipeList && recipeList.find((element) => element.id === recipeid)
   return (
     recipeList && (
       <div className="foodContainer">

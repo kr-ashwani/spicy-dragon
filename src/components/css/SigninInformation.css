@@ -1,0 +1,40 @@
+input#phoneNumber ::-webkit-outer-spin-button,
+input#phoneNumber::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  margin: 5px;
+  font-size: 0.1rem;
+}
+input#phoneNumber:focus {
+  border: 2px solid rgb(29, 28, 28);
+}
+.genderInput label {
+  display: inline;
+  margin: 0;
+  color: #2c2d2e;
+  font-size: 0.9rem;
+}
+.signInfo > label {
+  color: #2c2d2e;
+  font-size: 0.95rem;
+}
+.genderInput input {
+  margin-left: 0;
+  transform: translateY(1px);
+  margin-right: 5px;
+  display: inline-block;
+  width: auto;
+}
+.genderInput {
+  gap: 30px;
+  margin: 0px 0 0 2px;
+}
+.signinInfoForm > button {
+  margin-top: 20px !important;
+}
+.signinInfoForm > h1 {
+  margin-bottom: 15px !important;
+}
+.signinInfoForm {
+  margin-top: 10px;
+}

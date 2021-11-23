@@ -19,7 +19,7 @@ const Theme = () => {
       setNavColor(color);
   }
   useEffect(() => {
-    if (location.pathname === "/")
+    if (location.pathname === "/" || location.pathname === '/resetpassword')
       homeButton.current.style.display = "none"
     else
       homeButton.current.style.display = "block"

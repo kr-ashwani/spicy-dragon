@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
 
 ReactDOM.render(
   <BrowserRouter>
     <ThemeProvider>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </ThemeProvider>
   </BrowserRouter>
   ,
