@@ -1,0 +1,25 @@
+.GuestContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  margin: 10px auto;
+  gap: 50px;
+  padding: 0 20px;
+}
+
+.GuestContainer img {
+  width: 100%;
+}
+.GuestContainer a {
+  font-size: clamp(0.6rem, 2.5vw, 1rem);
+  text-decoration: none;
+  color: #000;
+  margin-left: -6vw;
+  transition: color 200ms ease-in-out;
+}
+.GuestContainer a.dark {
+  text-decoration: none;
+  color: #fff;
+}

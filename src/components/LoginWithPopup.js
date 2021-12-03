@@ -1,8 +1,8 @@
 import React from 'react'
 import { useAuth } from '../context/AuthContext'
-import googelImg from '../assets/googleIcon.svg'
+import googleImg from '../assets/googleIcon.svg'
 import useMounted from '../hooks/useMounted'
-import { doc, setDoc, Timestamp } from '@firebase/firestore'
+import { doc, getDoc, setDoc, Timestamp } from '@firebase/firestore'
 import { db } from '../firebase/firebaseConfig'
 import { useModal } from '../hooks/useModal'
 
@@ -15,7 +15,13 @@ const LoginWithPopUp = ({ message, setMessage }) => {
     try {
       const userCredentials = await loginWithGoogle();
       const user = userCredentials.user;
-      console.log(user);
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      console.log(docSnap.data());
+      if (docSnap.exists())
+        return setOpenModal(!openModal)
+
       const userData = {
         email: user.email,
         userName: user.displayName,
@@ -30,12 +36,13 @@ const LoginWithPopUp = ({ message, setMessage }) => {
       setOpenModal(!openModal)
     }
     catch (err) {
-      mounted.current && setMessage({ ...message, error: `${err.code.replace("auth/", '')}` })
+      if (err.code)
+        mounted.current && setMessage({ ...message, error: `${err.code.replace("auth/", '')}` })
     }
   };
   return (
     <button onClick={loginPopup} style={{ color: "#bc4977" }} className="submit" >
-      <div className="googleImg"><img src={googelImg} alt="google" /></div>
+      <div className="googleImg"><img src={googleImg} alt="google" /></div>
       <p>Sign in with Google</p>
     </button>
   )

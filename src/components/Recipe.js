@@ -34,6 +34,9 @@ function Recipe({ recipe, id }) {
     <div className={`recipe_item ${mode}`} >
       <i onClick={removeRecipe} className="fas fa-trash-alt"></i>
       <div className="recipe_card">
+        <div className="recipe_img">
+          <img src="https://images.pexels.com/photos/2318966/pexels-photo-2318966.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt={`${recipe.title}`} />
+        </div>
         <p>{recipe.title}</p>
         <p className={`${mode}`}>{recipe.time} minutes to make</p>
         <p className="recipeMethod">{truncateString(recipe.method, 20)}</p>

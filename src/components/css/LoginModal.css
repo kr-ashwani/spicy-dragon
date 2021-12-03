@@ -14,6 +14,7 @@
   position: relative;
   flex: 0 1 400px;
   max-width: 380px;
+  margin: 0 20px;
   height: 470px;
   background-color: #ffff;
   border-radius: 10px;

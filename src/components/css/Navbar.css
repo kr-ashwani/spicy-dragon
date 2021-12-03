@@ -11,6 +11,7 @@ nav {
   position: relative;
 }
 .logo {
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,8 +61,8 @@ nav {
     padding: 0 50px;
   }
 }
-@media only screen and (max-width: 700px) {
-  .navbar input[type="text"] {
+@media only screen and (max-width: 750px) {
+  .nav_search > input[type="text"] {
     display: none;
   }
   .nav_search > label {

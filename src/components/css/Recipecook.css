@@ -8,7 +8,7 @@
 .food_des {
   background-color: #fff;
   border-radius: 5px;
-  padding: 50px 50px;
+  padding: 20px 50px;
   transition: background-color 100ms ease-in-out, color 100ms ease-in-out;
 }
 .food_des.dark {
@@ -20,7 +20,7 @@
   /* width: 80%; */
 }
 .food_card > h2 {
-  margin-bottom: 25px;
+  margin-bottom: 5px;
 }
 .food_card > p:nth-child(2) {
   transition: color 100ms ease-in-out;
@@ -30,10 +30,10 @@
 .food_card > p:nth-child(2).dark {
   color: #b4b0b0c2;
 }
-.food_card > p:nth-child(3) {
+.food_card > p:nth-child(4) {
   margin: 2px auto;
 }
-.food_card > p:nth-child(4) {
+.food_card > p:nth-child(5) {
   margin: 20px auto;
 }
 .food_des > i {
@@ -55,16 +55,14 @@
   .food_card {
     margin: 0;
   }
-  .food_des > i {
-    left: 50px;
-  }
 }
 .food_card {
-  line-height: 30px;
+  position: relative;
 }
-.food_card > p:nth-child(4) {
+.food_card > p:nth-child(5) {
+  line-height: 30px;
   font-weight: 300;
-  font-size: 1.19rem;
+  font-size: clamp(0.9rem, 5vw, 1.18rem);
   text-align: left;
 }
 @media only screen and (max-width: 600px) {
@@ -72,14 +70,29 @@
     margin: 0 10px;
     padding: 50px 20px;
   }
-
-  .food_des > i {
-    left: 20px;
-  }
 }
 @media only screen and (max-width: 450px) {
   .food_des {
     margin: 0 10px;
     padding: 50px 20px;
   }
+}
+.food_des > i[class="fas fa-pen"] {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  text-align: right;
+  font-size: 1.5rem;
+}
+.recipecook_img {
+  margin: 20px 0 10px;
+  width: 100%;
+  /* margin: 40px auto 10px; */
+  overflow: hidden;
+}
+.recipecook_img > img {
+  width: 100%;
+  /* height: 300px; */
+  object-fit: cover;
+  object-position: center bottom;
 }

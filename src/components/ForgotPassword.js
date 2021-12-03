@@ -47,7 +47,7 @@ const ForgotPassword = ({ setForgotPassword }) => {
         <i className="fas fa-arrow-left"></i>
       </button>
       <h2>Forgot Password?</h2>
-      <p>An E-mail regarding password reset will be sent. please check your email.</p>
+      <p>An E-mail regarding password reset will be sent. please check your inbox.</p>
       <div className="verifyEmail">
         <Alert message={message} />
         <label htmlFor="email">Email:</label>

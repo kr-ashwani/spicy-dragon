@@ -70,7 +70,7 @@
     left: 50px;
   }
 }
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 750px) {
   .theme {
     padding: 0 20px;
   }

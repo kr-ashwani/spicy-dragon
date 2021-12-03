@@ -9,7 +9,7 @@ export const useCollection = (c) => {
     let ref = collection(db, c)
     let docsByTimestamp;
     if (c === 'recipe_list')
-      docsByTimestamp = query(ref, orderBy("createdTime", "desc"));
+      docsByTimestamp = query(ref, orderBy("lastEditedTime", "desc"), orderBy("createdTime", "desc"));
     else
       docsByTimestamp = ref;
 

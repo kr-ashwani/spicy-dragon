@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail, confirmPasswordReset } from "@firebase/auth";
 import { auth, db } from "../firebase/firebaseConfig"
-import { doc, Timestamp, updateDoc } from "@firebase/firestore";
+import { doc, getDoc, Timestamp, updateDoc } from "@firebase/firestore";
 
 const AuthContext = React.createContext();
 
@@ -39,11 +39,22 @@ function AuthProvider({ children }) {
       setUser({ currentUser: user, authIsReady: true })
       console.log("onAuthStateChanged user :- ", user);
       try {
-        if (user)
-          if (user.createdAt !== user.lastLoginAt)
-            updateDoc(doc(db, "users", user.uid), {
-              lastSignInTime: Timestamp.fromDate(new Date())
-            })
+        if (user) {
+          async function lastLoginUpdate() {
+            const docRef = doc(db, "users", user.uid);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+              updateDoc(doc(db, "users", user.uid), {
+                lastSignInTime: Timestamp.fromDate(new Date())
+              })
+            }
+          }
+          lastLoginUpdate();
+          // if (user.createdAt !== user.lastLoginAt) 
+          //   updateDoc(doc(db, "users", user.uid), {
+          //     lastSignInTime: Timestamp.fromDate(new Date())
+          //   })
+        }
       }
       catch (error) {
         console.log("Failed to updated user's lastSignInTime ", error.message);

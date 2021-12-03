@@ -53,7 +53,6 @@
 }
 
 .userInformation {
-  margin-bottom: 40px;
   transform: translateY(-60px);
   opacity: 0;
   animation: userCard 350ms ease-out 150ms forwards;
@@ -83,6 +82,12 @@
 @media screen and (max-width: 600px) {
   .userDetail {
     column-gap: 30px;
-    padding: 5px;
+    padding: 15px;
+  }
+  .dashboard {
+    gap: 40px;
+  }
+  .userInformation > button {
+    margin: 20px auto;
   }
 }

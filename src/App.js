@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import { ModalProvider } from './context/ModalContext';
 import ResetPassword from './components/ResetPassword';
 import UserDashboard from './components/UserDashboard';
+import PrivateRoute from './PrivateRoute';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,9 +22,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Restaurant searchTerm={searchTerm} />}></Route>
         <Route path="/createrecipe" element={<CreateRecipe />}></Route>
+        <Route path="/createrecipe/:recipeid" element={<CreateRecipe />}></Route>
         <Route path="/recipe/:recipeid" element={<Recipecook />}></Route>
         <Route path="/resetpassword" element={<ResetPassword />}></Route>
-        <Route path="/user" element={<UserDashboard />}></Route>
+        <Route path="/user" element={
+          <PrivateRoute>
+            <UserDashboard />
+          </PrivateRoute>
+        }></Route>
       </Routes>
     </>
   );
