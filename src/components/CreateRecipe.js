@@ -76,7 +76,8 @@ const CreateRecipe = () => {
         title: recipeData.title,
         ingredients: recipeData.ingredients,
         method: recipeData.method,
-        time: recipeData.time
+        time: recipeData.time,
+        imageUrl: ''
       })
     }
     getRecipe()
@@ -101,9 +102,6 @@ const CreateRecipe = () => {
       optimizeFile(event.target.files[0], setCompressedFile)
     }
   }
-  useEffect(() => {
-    console.log("Compressed File :-", compressedFile);
-  }, [compressedFile])
 
   function addItem(e) {
     if (e.target !== addRef.current)
@@ -162,13 +160,11 @@ const CreateRecipe = () => {
 
           const uploadTask = uploadBytesResumable(storageRef, compressedFile, metadata);
 
-          console.log("Upload Task :- ", uploadTask);
           // Listen for state changes, errors, and completion of the upload.
           uploadTask.on('state_changed',
             (snapshot) => {
               // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
               const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              console.log("progress :- ", progress);
               setUploadStatus({ ...uploadStatus, progress, state: snapshot.state })
             },
             (error) => {
@@ -178,7 +174,6 @@ const CreateRecipe = () => {
               // Upload completed successfully, now we can get the download URL
               (async function recipeUpload() {
                 const recipeImageUrl = await getDownloadURL(uploadTask.snapshot.ref)
-                console.log("imageUrl :- ", recipeImageUrl);
                 setUploadStatus({ ...uploadStatus, progress: 100, state: 'uploaded', loading: false })
 
                 //delete file

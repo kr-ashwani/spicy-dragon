@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useCollection } from '../hooks/useCollection'
 import { useLoading } from '../hooks/useLoading';
+import useMounted from '../hooks/useMounted';
 import { useTheme } from '../hooks/useTheme';
 import "./css/Restaurant.css"
 import Recipe from './Recipe';
@@ -12,12 +13,14 @@ const Restaurant = ({ searchTerm }) => {
   const { documents: recipeList } = useCollection('recipe_list');
   let filteredList = recipeList && recipeList.filter((recipe) => recipe.title.toLowerCase().includes(searchTerm.trim().toLowerCase()))
   const [remountCount, setRemountCount] = useState(0)
+  const mountedStatus = useMounted();
 
   useEffect(() => {
     setTimeout(() => {
-      setRemountCount(1);
+      if (mountedStatus.current)
+        setRemountCount(1);
     }, 500)
-  }, [setRemountCount])
+  }, [setRemountCount, mountedStatus])
 
   useEffect(() => {
     if (remountCount === 1 && recipeList === null)

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router';
 import { useCollection } from '../hooks/useCollection'
 import { useLoading } from '../hooks/useLoading';
+import useMounted from '../hooks/useMounted';
 import { useTheme } from '../hooks/useTheme';
 import "./css/Recipecook.css"
 
@@ -13,12 +14,14 @@ const Recipecook = () => {
   const { recipeid } = useParams();
   const recipe = recipeList && recipeList.find((element) => element.id === recipeid)
   const [remountCount, setRemountCount] = useState(0)
+  const mountedStatus = useMounted();
 
   useEffect(() => {
     setTimeout(() => {
-      setRemountCount(1);
+      if (mountedStatus.current)
+        setRemountCount(1);
     }, 500)
-  }, [setRemountCount])
+  }, [setRemountCount, mountedStatus])
 
   useEffect(() => {
     if (remountCount === 1 && recipeList === null)

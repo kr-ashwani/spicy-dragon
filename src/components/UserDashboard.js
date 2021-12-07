@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { useAuth } from '../context/AuthContext';
 import { useDoc } from '../hooks/useDoc';
 import { useLoading } from '../hooks/useLoading';
+import useMounted from '../hooks/useMounted';
 import { useTheme } from '../hooks/useTheme';
 import AnimatedInput from './AnimatedInput';
 import './css/UserDashboard.css'
@@ -15,12 +16,14 @@ const UserDashboard = () => {
   const { navColor, mode } = useTheme()
   const { logOut } = useAuth();
   const [remountCount, setRemountCount] = useState(0)
+  const mountedStatus = useMounted();
 
   useEffect(() => {
     setTimeout(() => {
-      setRemountCount(1);
-    }, 500)
-  }, [setRemountCount])
+      if (mountedStatus.current)
+        setRemountCount(1);
+    }, 2000)
+  }, [setRemountCount, mountedStatus])
 
   useEffect(() => {
     if (remountCount === 1 && !user)
