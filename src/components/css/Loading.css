@@ -1,0 +1,118 @@
+.loading-container {
+  width: 100px;
+  height: 100px;
+  background-color: #cfccd4db;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 10;
+  top: calc(50%);
+  left: calc(50vw - 50px);
+  transition: background-color 400ms ease-in-out;
+}
+.loading-container.dark {
+  background-color: #161616bf;
+}
+.loading-container.completed {
+  animation: moveDown 450ms ease-in-out forwards;
+}
+.loading-container.started {
+  animation: enlarge 300ms ease-in-out forwards;
+}
+.loading-box {
+  display: flex;
+}
+.circle {
+  width: 10px;
+  margin-right: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #363535;
+  transition: background-color 400ms ease-in-out;
+}
+.circle.dark {
+  background-color: #fff;
+}
+.circle:nth-last-child(1) {
+  margin-right: 0;
+}
+.circle:nth-child(1) {
+  animation: inflate1 1200ms ease-out infinite;
+}
+.circle:nth-child(2) {
+  animation: inflate2 1200ms ease-out infinite;
+}
+.circle:nth-child(3) {
+  animation: inflate3 1200ms ease-out infinite;
+}
+
+@keyframes inflate1 {
+  0% {
+    transform: scale(1);
+  }
+  33.3% {
+    transform: scale(1.45);
+  }
+  66.67% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes inflate2 {
+  0% {
+    transform: scale(1);
+  }
+  16.67% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.45);
+  }
+  83.33% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes inflate3 {
+  0% {
+    transform: scale(1);
+  }
+  33.33% {
+    transform: scale(1);
+  }
+  66.667% {
+    transform: scale(1.45);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes moveDown {
+  0% {
+    transform: translatey(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translatey(50px);
+    opacity: 0;
+    z-index: -1;
+  }
+}
+
+@keyframes enlarge {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

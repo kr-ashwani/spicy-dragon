@@ -1,7 +1,8 @@
-import { deleteDoc, doc } from '@firebase/firestore'
+import { deleteDoc, doc, getDoc } from '@firebase/firestore'
+import { deleteObject, ref } from '@firebase/storage'
 import React from 'react'
 import { useNavigate } from 'react-router'
-import { db } from '../firebase/firebaseConfig'
+import { db, storage } from '../firebase/firebaseConfig'
 import { useTheme } from '../hooks/useTheme'
 import './css/Recipe.css'
 
@@ -14,10 +15,17 @@ function Recipe({ recipe, id }) {
     navigate(`/recipe/${id}`)
   }
   async function removeRecipe() {
-    let ref = doc(db, 'recipe_list', id);
     try {
-      await deleteDoc(ref);
-      alert("Reciped removed!")
+      let deleteCnf = window.confirm("Are you sure you want to delete recipe?")
+      if (deleteCnf) {
+        const docSnap = await getDoc(doc(db, "recipe_list", id));
+        if (docSnap.exists()) {
+          const recipeData = docSnap.data();
+          const imgRef = ref(storage, recipeData.recipeImagePath);
+          await deleteObject(imgRef)
+          await deleteDoc(doc(db, 'recipe_list', id));
+        }
+      }
     }
     catch (err) {
       alert("Failed to remove recipe!", err.message)
@@ -35,7 +43,7 @@ function Recipe({ recipe, id }) {
       <i onClick={removeRecipe} className="fas fa-trash-alt"></i>
       <div className="recipe_card">
         <div className="recipe_img">
-          <img src="https://images.pexels.com/photos/2318966/pexels-photo-2318966.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt={`${recipe.title}`} />
+          <img src={`${recipe.recipeImageUrl}`} alt={`${recipe.title}`} />
         </div>
         <p>{recipe.title}</p>
         <p className={`${mode}`}>{recipe.time} minutes to make</p>

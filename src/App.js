@@ -10,6 +10,7 @@ import { ModalProvider } from './context/ModalContext';
 import ResetPassword from './components/ResetPassword';
 import UserDashboard from './components/UserDashboard';
 import PrivateRoute from './PrivateRoute';
+import Loading from './components/Loading';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,6 +20,7 @@ function App() {
         <Navbar setSearchTerm={setSearchTerm} />
       </ModalProvider>
       <Theme />
+      <Loading />
       <Routes>
         <Route path="/" element={<Restaurant searchTerm={searchTerm} />}></Route>
         <Route path="/createrecipe" element={<CreateRecipe />}></Route>
@@ -26,7 +28,7 @@ function App() {
         <Route path="/recipe/:recipeid" element={<Recipecook />}></Route>
         <Route path="/resetpassword" element={<ResetPassword />}></Route>
         <Route path="/user" element={
-          <PrivateRoute>
+          <PrivateRoute >
             <UserDashboard />
           </PrivateRoute>
         }></Route>

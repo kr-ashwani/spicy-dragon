@@ -1,21 +1,38 @@
-import { addDoc, arrayUnion, collection, doc, Timestamp, updateDoc } from '@firebase/firestore';
+import { addDoc, arrayUnion, collection, doc, getDoc, Timestamp, updateDoc } from '@firebase/firestore';
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
 import { CircularProgress } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react'
 import { useLocation, useParams } from 'react-router';
 import { useAuth } from '../context/AuthContext';
-import { db } from '../firebase/firebaseConfig';
+import { db, storage } from '../firebase/firebaseConfig';
+import { useLoading } from '../hooks/useLoading';
 import { useTheme } from '../hooks/useTheme';
+import { optimizeFile } from '../utility_js/imageOptimize';
 import Alert from './Alert';
 import './css/CreateRecipe.css'
+import UploadProgress from './UploadProgress';
 
 const CreateRecipe = () => {
   const location = useLocation()
+  const { setContentIsReady } = useLoading();
   const { navColor, mode } = useTheme();
   const { currentUser } = useAuth()
   const { recipeid } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const ingref = useRef();
   const addRef = useRef();
+  const recipeImageRef = useRef();
+
+  const [responseImageEdit, setResponseImageEdit] = useState(null);
+  const [compressedFile, setCompressedFile] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState({
+    progress: 0,
+    state: ''
+  })
+
+  useEffect(() => {
+    setContentIsReady(true)
+  }, [setContentIsReady, recipeid])
 
   const [values, setValues] = useState({
     title: "",
@@ -38,7 +55,6 @@ const CreateRecipe = () => {
   }, [navColor])
 
   useEffect(() => {
-    console.log("Recipeid :- ", recipeid);
     if (!recipeid) {
       setValues({
         title: "",
@@ -46,6 +62,11 @@ const CreateRecipe = () => {
         method: '',
         time: 1,
         imageUrl: ''
+      })
+      setResponseImageEdit(null);
+      setUploadStatus({
+        progress: 0,
+        state: ''
       })
       return
     }
@@ -55,7 +76,7 @@ const CreateRecipe = () => {
         title: recipeData.title,
         ingredients: recipeData.ingredients,
         method: recipeData.method,
-        time: recipeData.time,
+        time: recipeData.time
       })
     }
     getRecipe()
@@ -75,7 +96,14 @@ const CreateRecipe = () => {
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
+    if (name === 'imageUrl') {
+      setUploadStatus({ ...uploadStatus, progress: 0, loading: false })
+      optimizeFile(event.target.files[0], setCompressedFile)
+    }
   }
+  useEffect(() => {
+    console.log("Compressed File :-", compressedFile);
+  }, [compressedFile])
 
   function addItem(e) {
     if (e.target !== addRef.current)
@@ -100,7 +128,8 @@ const CreateRecipe = () => {
     e.preventDefault();
     if (message.recipeRepeat)
       return setMessage({ ...message, success: '', error: 'Resubmitting same recipe is not allowed' })
-    if (!title.trim() || !method.trim() || !ingredients.length || !imageUrl.length) {
+
+    if (!title.trim() || !method.trim() || !ingredients.length) {
       switch (false) {
         case Boolean(title.trim()):
           return setMessage({ ...message, warning: "Title field is empty" })
@@ -110,20 +139,72 @@ const CreateRecipe = () => {
           return setMessage({ ...message, warning: "Method field is empty" })
         case Boolean(time):
           return setMessage({ ...message, warning: "Time field is empty" })
-        case Boolean(imageUrl.trim()):
-          return setMessage({ ...message, warning: "Upload recipe image" })
         default:
       }
     }
     const recipeRef = collection(db, 'recipe_list')
     if (recipeid) {
       try {
+        if (!compressedFile)
+          return;
         setIsLoading(!isLoading)
         const lastEditedTime = Timestamp.fromDate(new Date())
-        await updateDoc(doc(db, 'recipe_list', recipeid), { ...values, lastEditedTime })
 
-        setMessage({ ...message, success: "Recipe successfully edited!", recipeRepeat: true })
-        setIsLoading((loading) => !loading)
+        if (responseImageEdit) {
+          const recipeImagePath = `recipe_image/${title}_${new Date().toISOString()}.jpg`;
+
+          const storageRef = ref(storage, recipeImagePath);
+
+
+          const metadata = {
+            contentType: 'image/jpeg'
+          };
+
+          const uploadTask = uploadBytesResumable(storageRef, compressedFile, metadata);
+
+          console.log("Upload Task :- ", uploadTask);
+          // Listen for state changes, errors, and completion of the upload.
+          uploadTask.on('state_changed',
+            (snapshot) => {
+              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log("progress :- ", progress);
+              setUploadStatus({ ...uploadStatus, progress, state: snapshot.state })
+            },
+            (error) => {
+              throw new Error(error.code)
+            },
+            () => {
+              // Upload completed successfully, now we can get the download URL
+              (async function recipeUpload() {
+                const recipeImageUrl = await getDownloadURL(uploadTask.snapshot.ref)
+                console.log("imageUrl :- ", recipeImageUrl);
+                setUploadStatus({ ...uploadStatus, progress: 100, state: 'uploaded', loading: false })
+
+                //delete file
+                const docSnap = await getDoc(doc(db, "recipe_list", recipeid));
+                if (docSnap.exists()) {
+                  const recipeData = docSnap.data();
+                  const imgRef = ref(storage, recipeData.recipeImagePath);
+                  await deleteObject(imgRef)
+                }
+
+                await updateDoc(doc(db, 'recipe_list', recipeid), { ...values, lastEditedTime, recipeImageUrl, recipeImagePath })
+
+                setMessage({ ...message, success: "Recipe successfully edited!", recipeRepeat: true })
+                setIsLoading((loading) => !loading)
+
+              }());
+            }
+          );
+        }
+        else {
+          const { imageUrl, ...updatedValue } = values
+          await updateDoc(doc(db, 'recipe_list', recipeid), { ...updatedValue, lastEditedTime })
+
+          setMessage({ ...message, success: "Recipe successfully edited!", recipeRepeat: true })
+          setIsLoading((loading) => !loading)
+        }
       }
       catch (err) {
         setIsLoading((loading) => !loading)
@@ -132,25 +213,62 @@ const CreateRecipe = () => {
       return;
     }
     try {
+      if (!compressedFile)
+        return;
       setIsLoading(!isLoading)
       let createdTime = Timestamp.fromDate(new Date())
       const lastEditedTime = Timestamp.fromDate(new Date())
       let authorUid = currentUser.uid;
-      const recipeDoc = await addDoc(recipeRef, { ...values, createdTime, authorUid, lastEditedTime })
 
-      await updateDoc(doc(db, "users", currentUser.uid), {
-        recipeAdded: arrayUnion(recipeDoc.id)
-      })
-      // await setDoc(doc(db, "recipe_list", currentUser.uid), { ...recipeData, createdTime })
-      setMessage({ ...message, success: "Recipe successfully added!", recipeRepeat: true })
-      setIsLoading((loading) => !loading)
+      const recipeImagePath = `recipe_image/${title}_${new Date().toISOString()}.jpg`;
+      const storageRef = ref(storage, recipeImagePath);
+
+      const metadata = {
+        contentType: 'image/jpeg'
+      };
+      const uploadTask = uploadBytesResumable(storageRef, compressedFile, metadata);
+
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+          setUploadStatus({ ...uploadStatus, progress, state: snapshot.state })
+        },
+        (error) => {
+          throw new Error(error.code)
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          (async function recipeUpload() {
+            const recipeImageUrl = await getDownloadURL(uploadTask.snapshot.ref)
+            setUploadStatus({ ...uploadStatus, progress: 100, state: 'uploading', loading: false })
+            const recipeDoc = await addDoc(recipeRef, { ...values, createdTime, authorUid, lastEditedTime, recipeImageUrl, recipeImagePath })
+
+            await updateDoc(doc(db, "users", currentUser.uid), {
+              recipeAdded: arrayUnion(recipeDoc.id)
+            })
+            // await setDoc(doc(db, "recipe_list", currentUser.uid), { ...recipeData, createdTime })
+            setMessage({ ...message, success: "Recipe successfully added!", recipeRepeat: true })
+            setIsLoading((loading) => !loading)
+          }());
+        }
+      );
+
+      // await uploadBytes(storageRef, recipeImageRef.current.files[0])
+      // const recipeImageUrl = await getDownloadURL(ref(storage, recipeImagePath))
+
     }
     catch (err) {
       setIsLoading((loading) => !loading)
       setMessage({ ...message, error: err.message })
     }
   }
-
+  function responseImage(e) {
+    e.preventDefault();
+    e.target.textContent === 'Yes' ? setResponseImageEdit(true) : setResponseImageEdit(false)
+  }
   return (
     <div className="recipeform" onSubmit={handleSubmit}>
       <form >
@@ -182,10 +300,22 @@ const CreateRecipe = () => {
           <label className={`${mode}`} htmlFor="time">Cooking time (minutes):</label>
           <input onChange={handleChange("time")} value={time} type="number" min="1" max="10000" id="time" />
         </div>
-        <div className="field">
-          <label className={`${mode}`} htmlFor="recipeImage">Recipe image:</label>
-          <input className={`${mode}`} accept="image/*" onChange={handleChange("imageUrl")} value={imageUrl} type="file" id="recipeImage" />
-        </div>
+        {responseImageEdit === false ? null :
+          <div className="field">
+            <label className={`${mode}`} htmlFor="recipeImage">Recipe image:</label>
+            <input required ref={recipeImageRef} className={`${mode}`} accept="image/*" onChange={handleChange("imageUrl")} value={imageUrl} type="file" id="recipeImage" />
+            {isLoading ?
+              <UploadProgress uploadStatus={uploadStatus} setUploadStatus={setUploadStatus} />
+              : null}
+            {recipeid && !responseImageEdit ? <div className={`imageEdit ${mode}`}>
+              <p>Edit recipe image?</p>
+              <div className="responseBtn" >
+                <button onClick={responseImage}>Yes</button>
+                <button onClick={responseImage}>No</button>
+              </div>
+            </div> : null}
+          </div>}
+
         <Alert message={message} />
         {
           !isLoading ?

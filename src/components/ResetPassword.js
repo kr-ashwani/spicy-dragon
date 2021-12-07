@@ -5,8 +5,10 @@ import { useQuery } from '../hooks/useQuery';
 import Alert from './Alert';
 import './css/NewPassword.css'
 import { CircularProgress } from '@mui/material';
+import { useLoading } from '../hooks/useLoading';
 
 const ResetPassword = () => {
+  const { setContentIsReady } = useLoading();
   const [isLoading, setIsLoading] = useState(false);
   const query = useQuery()
   const { resetPassword } = useAuth();
@@ -26,6 +28,10 @@ const ResetPassword = () => {
       error: null
     });
   }, [values])
+
+  useEffect(() => {
+    setContentIsReady(true)
+  }, [setContentIsReady])
 
   const { password, confirmPassword } = values;
 

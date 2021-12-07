@@ -1,6 +1,8 @@
 .recipeform {
+  width: 100%;
   max-width: 400px;
   margin: 50px auto;
+  overflow: hidden;
 }
 .recipeform form h2 {
   transition: color 100ms ease-in-out;
@@ -58,6 +60,7 @@ h2[class="dark"] {
 }
 .field {
   margin: 20px auto;
+  margin: 15px auto;
 }
 .field > div {
   display: flex;
@@ -120,6 +123,7 @@ h2[class="dark"] {
 }
 input[type="file"]::file-selector-button {
   /* border: 2px solid #6c5ce7; */
+  /* width: 100%; */
   padding: 0 10px;
   border-radius: 0.2rem;
   border: 0;
@@ -127,8 +131,9 @@ input[type="file"]::file-selector-button {
   background-color: var(--navColor);
   transition: background-color 400ms ease-in-out;
   color: #fff;
+  cursor: pointer;
 }
-/* input[type="file"]::-webkit-file-upload-button{
+/* input[type="file"]::-webkit-file-upload-button {
   border: 2px solid #6c5ce7;
   padding: 0 10px;
   border-radius: 0.2rem;
@@ -138,3 +143,32 @@ input[type="file"]::file-selector-button {
   transition: background-color 400ms ease-in-out;
   color: #fff;
 } */
+.imageEdit {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 2px;
+  height: 2.3rem;
+  transition: background-color 100ms ease-in-out;
+  background-color: #dfdedf !important;
+  z-index: 5;
+}
+.imageEdit.dark {
+  background-color: #1e1e1e !important;
+  color: #fff;
+}
+.field {
+  position: relative;
+}
+.responseBtn > button {
+  height: 2rem;
+  background-color: var(--navColor);
+}
+.responseBtn > button:nth-child(1) {
+  margin: 0 !important;
+}
+.submit {
+  margin-top: 25px !important;
+}

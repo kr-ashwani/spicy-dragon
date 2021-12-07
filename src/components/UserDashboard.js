@@ -1,17 +1,34 @@
 import { Avatar } from '@mui/material';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 import { useAuth } from '../context/AuthContext';
 import { useDoc } from '../hooks/useDoc';
+import { useLoading } from '../hooks/useLoading';
 import { useTheme } from '../hooks/useTheme';
 import AnimatedInput from './AnimatedInput';
 import './css/UserDashboard.css'
 
 const UserDashboard = () => {
   const navigate = useNavigate();
+  const { setContentIsReady } = useLoading();
   const { document: user } = useDoc('users')
   const { navColor, mode } = useTheme()
   const { logOut } = useAuth();
+  const [remountCount, setRemountCount] = useState(0)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setRemountCount(1);
+    }, 500)
+  }, [setRemountCount])
+
+  useEffect(() => {
+    if (remountCount === 1 && !user)
+      setContentIsReady(false)
+    else if (user)
+      setContentIsReady(true)
+
+  }, [user, setContentIsReady, remountCount])
 
   async function userLogout() {
     try {
