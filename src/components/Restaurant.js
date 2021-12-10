@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useCollection } from '../hooks/useCollection'
 import { useLoading } from '../hooks/useLoading';
 import useMounted from '../hooks/useMounted';
+import { useRecipeList } from '../hooks/useRecipeList';
 import { useTheme } from '../hooks/useTheme';
 import "./css/Restaurant.css"
 import Recipe from './Recipe';
@@ -10,7 +10,7 @@ import Recipe from './Recipe';
 const Restaurant = ({ searchTerm }) => {
   const { setContentIsReady } = useLoading();
   const { mode } = useTheme();
-  const { documents: recipeList } = useCollection('recipe_list');
+  const { recipeList } = useRecipeList()
   let filteredList = recipeList && recipeList.filter((recipe) => recipe.title.toLowerCase().includes(searchTerm.trim().toLowerCase()))
   const [remountCount, setRemountCount] = useState(0)
   const mountedStatus = useMounted();

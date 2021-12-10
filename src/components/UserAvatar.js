@@ -2,9 +2,12 @@ import { Avatar } from '@mui/material';
 import React from 'react'
 import { useNavigate } from 'react-router';
 import { useDoc } from '../hooks/useDoc'
+import { useAuth } from '../context/AuthContext';
+
 
 const UserAvatar = () => {
-  const { document: user } = useDoc('users')
+  const { currentUser } = useAuth();
+  const { document: user } = useDoc('users', currentUser.uid)
   const navigate = useNavigate();
 
   return (

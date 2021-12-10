@@ -6,17 +6,22 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import { LoadingProvider } from './context/LoadingContext';
+import { RecipeListProvider } from './context/RecipeListContext';
+import { combineProviders } from './utility_js/combineProviders'
+
+const Providers = combineProviders([
+  BrowserRouter,
+  RecipeListProvider,
+  ThemeProvider,
+  AuthProvider,
+  LoadingProvider
+])
+console.dir(Providers);
 
 ReactDOM.render(
-  <BrowserRouter>
-    <ThemeProvider>
-      <AuthProvider>
-        <LoadingProvider>
-          <App />
-        </LoadingProvider>
-      </AuthProvider>
-    </ThemeProvider>
-  </BrowserRouter>
+  <Providers>
+    <App />
+  </Providers>
   ,
   document.getElementById('root')
 );

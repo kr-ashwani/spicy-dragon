@@ -1,24 +1,22 @@
 import { doc, onSnapshot } from '@firebase/firestore';
 import { useEffect, useState } from 'react'
-import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase/firebaseConfig';
 
-export const useDoc = (collectionName) => {
+export const useDoc = (collectionName, documentUid) => {
   const [document, setDocument] = useState();
-  const { currentUser } = useAuth();
+
 
   useEffect(() => {
-    if (!currentUser) {
-      setDocument()
+    if (!collectionName && !documentUid)
       return;
-    }
 
-    const ref = doc(db, collectionName, currentUser.uid)
+    const ref = doc(db, collectionName, documentUid)
+
     const unsub = onSnapshot(ref, (doc) => {
       setDocument(doc.data());
     });
     return unsub
-  }, [currentUser, collectionName])
+  }, [collectionName, documentUid])
 
   return { document }
 }

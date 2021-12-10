@@ -29,10 +29,10 @@
   transform: scaleX(0);
 }
 .animatedInput > .border.active {
-  animation: lineMove 300ms ease-in-out forwards;
+  animation: lineMove 500ms ease-in-out forwards;
 }
 .animatedInput > .border.active-reverse {
-  animation: lineMove-reverse 300ms ease-in-out forwards;
+  animation: lineMove-reverse 500ms ease-in-out forwards;
 }
 .animatedInput > .fa-pen {
   cursor: pointer;

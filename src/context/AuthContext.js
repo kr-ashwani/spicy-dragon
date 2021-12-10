@@ -50,10 +50,6 @@ function AuthProvider({ children }) {
             }
           }
           lastLoginUpdate();
-          // if (user.createdAt !== user.lastLoginAt) 
-          //   updateDoc(doc(db, "users", user.uid), {
-          //     lastSignInTime: Timestamp.fromDate(new Date())
-          //   })
         }
       }
       catch (error) {

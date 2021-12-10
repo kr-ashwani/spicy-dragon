@@ -98,7 +98,7 @@ const CreateRecipe = () => {
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
     if (name === 'imageUrl') {
-      setUploadStatus({ ...uploadStatus, progress: 0, loading: false })
+      setUploadStatus({ ...uploadStatus, progress: 0 })
       optimizeFile(event.target.files[0], setCompressedFile)
     }
   }
@@ -143,7 +143,7 @@ const CreateRecipe = () => {
     const recipeRef = collection(db, 'recipe_list')
     if (recipeid) {
       try {
-        if (!compressedFile)
+        if (!compressedFile && responseImageEdit)
           return;
         setIsLoading(!isLoading)
         const lastEditedTime = Timestamp.fromDate(new Date())
@@ -160,6 +160,7 @@ const CreateRecipe = () => {
 
           const uploadTask = uploadBytesResumable(storageRef, compressedFile, metadata);
 
+
           // Listen for state changes, errors, and completion of the upload.
           uploadTask.on('state_changed',
             (snapshot) => {
@@ -174,7 +175,7 @@ const CreateRecipe = () => {
               // Upload completed successfully, now we can get the download URL
               (async function recipeUpload() {
                 const recipeImageUrl = await getDownloadURL(uploadTask.snapshot.ref)
-                setUploadStatus({ ...uploadStatus, progress: 100, state: 'uploaded', loading: false })
+                setUploadStatus({ ...uploadStatus, progress: 100, state: 'uploaded' })
 
                 //delete file
                 const docSnap = await getDoc(doc(db, "recipe_list", recipeid));
@@ -184,7 +185,7 @@ const CreateRecipe = () => {
                   await deleteObject(imgRef)
                 }
 
-                await updateDoc(doc(db, 'recipe_list', recipeid), { ...values, lastEditedTime, recipeImageUrl, recipeImagePath })
+                await updateDoc(doc(db, 'recipe_list', recipeid), { ...values, lastEditedTime, recipeImageUrl, recipeImagePath, editedAuthorUid: currentUser.uid })
 
                 setMessage({ ...message, success: "Recipe successfully edited!", recipeRepeat: true })
                 setIsLoading((loading) => !loading)
@@ -195,7 +196,7 @@ const CreateRecipe = () => {
         }
         else {
           const { imageUrl, ...updatedValue } = values
-          await updateDoc(doc(db, 'recipe_list', recipeid), { ...updatedValue, lastEditedTime })
+          await updateDoc(doc(db, 'recipe_list', recipeid), { ...updatedValue, lastEditedTime, editedAuthorUid: currentUser.uid })
 
           setMessage({ ...message, success: "Recipe successfully edited!", recipeRepeat: true })
           setIsLoading((loading) => !loading)
@@ -228,7 +229,6 @@ const CreateRecipe = () => {
         (snapshot) => {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
           setUploadStatus({ ...uploadStatus, progress, state: snapshot.state })
         },
         (error) => {
@@ -238,7 +238,7 @@ const CreateRecipe = () => {
           // Upload completed successfully, now we can get the download URL
           (async function recipeUpload() {
             const recipeImageUrl = await getDownloadURL(uploadTask.snapshot.ref)
-            setUploadStatus({ ...uploadStatus, progress: 100, state: 'uploading', loading: false })
+            setUploadStatus({ ...uploadStatus, progress: 100, state: 'uploaded' })
             const recipeDoc = await addDoc(recipeRef, { ...values, createdTime, authorUid, lastEditedTime, recipeImageUrl, recipeImagePath })
 
             await updateDoc(doc(db, "users", currentUser.uid), {

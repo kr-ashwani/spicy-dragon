@@ -12,9 +12,9 @@ import './css/UserDashboard.css'
 const UserDashboard = () => {
   const navigate = useNavigate();
   const { setContentIsReady } = useLoading();
-  const { document: user } = useDoc('users')
+  const { logOut, currentUser } = useAuth();
+  const { document: user } = useDoc('users', currentUser.uid)
   const { navColor, mode } = useTheme()
-  const { logOut } = useAuth();
   const [remountCount, setRemountCount] = useState(0)
   const mountedStatus = useMounted();
 

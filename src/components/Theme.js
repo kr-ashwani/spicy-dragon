@@ -34,7 +34,7 @@ const Theme = () => {
             onClick={() => themeChange(element)}></div>
         })}
       </div>
-      <button ref={homeButton} onClick={() => navigate('/')} style={{ backgroundColor: `${navColor}`, color: "#fff" }} className="submit" >
+      <button ref={homeButton} onClick={() => { navigate(-1); }} style={{ backgroundColor: `${navColor}`, color: "#fff" }} className="submit" >
         <i className="fas fa-arrow-left"></i>
       </button>
     </div >

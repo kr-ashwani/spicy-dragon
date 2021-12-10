@@ -36,15 +36,7 @@
 .food_card > p:nth-child(5) {
   margin: 20px auto;
 }
-.food_des > i {
-  position: absolute;
-  top: -50px;
-  cursor: pointer;
-  left: 10px;
-  font-size: 2rem;
-  font-weight: 900;
-  transition: color 100ms ease-in-out;
-}
+
 .food_des.dark > i {
   color: #fff;
 }
@@ -75,8 +67,10 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  text-align: right;
   font-size: 1.5rem;
+  cursor: pointer;
+  /* font-weight: 900; */
+  transition: color 100ms ease-in-out;
 }
 .recipecook_img {
   margin: 20px 0 10px;
