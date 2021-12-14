@@ -124,6 +124,10 @@ const CreateRecipe = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (!currentUser)
+      return setMessage({ ...message, success: '', error: 'Please login to submit the recipe.' })
+
+
     if (message.recipeRepeat)
       return setMessage({ ...message, success: '', error: 'Resubmitting same recipe is not allowed' })
 
