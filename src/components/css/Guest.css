@@ -7,7 +7,7 @@
   margin: 10px auto;
   gap: 50px;
   padding: 0 20px;
-  min-height: calc(100vh - 230px);
+  min-height: calc(100vh - 110px - var(--footer-size) - 20px);
 }
 
 .GuestContainer img {

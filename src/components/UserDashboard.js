@@ -72,7 +72,7 @@ const UserDashboard = () => {
           <button style={{ backgroundColor: `${navColor}` }} onClick={userLogout}>Logout</button>
         </div>
       </div >) :
-      <DummyContent />
+      <DummyContent page="userdashboard" />
   )
 }
 
