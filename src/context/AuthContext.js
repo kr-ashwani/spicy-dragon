@@ -27,7 +27,7 @@ function AuthProvider({ children }) {
   }
   function forgotPassword(email) {
     return sendPasswordResetEmail(auth, email, {
-      url: "http://localhost:3000/"
+      url: "https://spicy-dragon.netlify.app"
     });
   }
   function resetPassword(oobCode, newPassword) {
