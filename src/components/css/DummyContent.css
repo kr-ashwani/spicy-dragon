@@ -1,0 +1,9 @@
+.dummy-content {
+  min-height: calc(100vh - 210px);
+}
+
+@media screen and (max-width: 700px) {
+  .dummy-content {
+    min-height: calc(100vh - 260px);
+  }
+}

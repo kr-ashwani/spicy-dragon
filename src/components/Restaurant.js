@@ -4,6 +4,7 @@ import useMounted from '../hooks/useMounted';
 import { useRecipeList } from '../hooks/useRecipeList';
 import { useTheme } from '../hooks/useTheme';
 import "./css/Restaurant.css"
+import DummyContent from './DummyContent';
 import Recipe from './Recipe';
 // import "./database.js"
 
@@ -31,13 +32,14 @@ const Restaurant = ({ searchTerm }) => {
   }, [recipeList, setContentIsReady, remountCount])
 
   return (
-    recipeList && (<div className={`recipelist ${mode}`} >
+    recipeList ? (<div className={`recipelist ${mode}`} >
       {
         filteredList.map((recipe) => {
           return <Recipe key={recipe.id} recipe={recipe} id={recipe.id} />
         })
       }
-    </div >)
+    </div >) :
+      <DummyContent />
   )
 }
 

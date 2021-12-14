@@ -1,0 +1,19 @@
+footer {
+  height: 100px;
+  position: relative;
+  bottom: 0;
+  transition: background-color 400ms ease-in-out;
+  color: #fff;
+}
+.footer-content {
+  height: 100%;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  align-items: center;
+}
+.footer-content p {
+  text-align: center;
+}

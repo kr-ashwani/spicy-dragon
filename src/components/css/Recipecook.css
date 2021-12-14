@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap");
+
 .foodContainer {
   position: relative;
   padding: 0.1px;
@@ -8,7 +10,7 @@
 .food_des {
   background-color: #fff;
   border-radius: 5px;
-  padding: 20px 20px;
+  padding: 20px 20px 40px;
   transition: background-color 100ms ease-in-out, color 100ms ease-in-out;
 }
 .food_des.dark {
@@ -25,44 +27,36 @@
 .food_card > p:nth-child(2) {
   transition: color 100ms ease-in-out;
   color: #8f9091;
+  font-size: 14px;
   margin: 2px auto;
 }
 .food_card > p:nth-child(2).dark {
   color: #b4b0b0c2;
 }
 .food_card > p:nth-child(4) {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
   margin: 2px auto;
+  color: #8f9091;
 }
-.food_card > p:nth-child(5) {
-  margin: 20px auto;
+.food_card > p:nth-child(4).dark {
+  color: #b4b0b0c2;
 }
 
 .food_des.dark > i {
   color: #fff;
 }
-@media only screen and (max-width: 1200px) {
-  .foodContainer {
-    margin-bottom: 0;
-  }
-  .food_card {
-    margin: 0;
-  }
-}
+
 .food_card {
   position: relative;
 }
 .food_card > p:nth-child(5) {
-  line-height: 30px;
   font-weight: 300;
   font-size: clamp(0.9rem, 5vw, 1.18rem);
   text-align: left;
 }
-@media only screen and (max-width: 600px) {
-  .food_des {
-    /* margin: 0 10px; */
-    padding: 50px 10px;
-  }
-}
+
 .food_des > i[class="fas fa-pen"] {
   position: absolute;
   top: 20px;
@@ -73,7 +67,7 @@
   transition: color 100ms ease-in-out;
 }
 .recipecook_img {
-  margin: 20px 0 10px;
+  margin: 20px 0 0px;
   width: 100%;
   max-height: 125vh;
   /* margin: 40px auto 10px; */
@@ -84,4 +78,61 @@
   /* height: 300px; */
   object-fit: cover;
   object-position: center center;
+}
+.cookingDescription {
+  text-align: left;
+}
+
+.cookingDescription p,
+li {
+  font-size: 16px;
+  line-height: 25px;
+}
+.cookingDescription p {
+  text-align: left;
+}
+.cookingDescription h3 {
+  margin: 10px 0 15px;
+}
+.cookingDescription h3:first-of-type {
+  margin-top: 20px;
+}
+.cookingDescription li {
+  padding-left: 10px;
+}
+.cookingDescription p {
+  padding-left: 5px;
+}
+
+@media only screen and (min-width: 860px) {
+  .cookingDescription p,
+  li {
+    font-size: 17px;
+    line-height: 30px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .food_des {
+    /* margin: 0 10px; */
+    padding: 20px 10px 40px;
+  }
+  .recipecook_img {
+    margin: 10px 0 0px;
+  }
+  .food_des > i[class="fas fa-pen"] {
+    top: 10px;
+    right: 10px;
+    font-size: 1.3rem;
+  }
+  .food_card > h2 {
+    margin-bottom: 0px;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .foodContainer {
+    margin-bottom: 0;
+  }
+  .food_card {
+    margin: 0;
+  }
 }

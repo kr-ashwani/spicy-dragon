@@ -10,7 +10,7 @@ const UploadProgress = ({ uploadStatus, setUploadStatus }) => {
   const updateStatusTimer = useRef(null);
 
   useEffect(() => {
-    return () => setUploadStatus({ progress: 0, state: '' })
+    return () => { setUploadStatus({ progress: 0, state: '' }); console.log("uploadstatus reset") }
   }, [setUploadStatus])
 
   useEffect(() => {

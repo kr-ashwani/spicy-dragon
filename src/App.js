@@ -6,19 +6,17 @@ import Recipecook from './components/Recipecook';
 import Restaurant from './components/Restaurant';
 import Theme from './components/Theme';
 import React, { useState } from 'react';
-import { ModalProvider } from './context/ModalContext';
 import ResetPassword from './components/ResetPassword';
 import UserDashboard from './components/UserDashboard';
 import PrivateRoute from './PrivateRoute';
 import Loading from './components/Loading';
+import Footer from './components/Footer';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   return (
     <>
-      <ModalProvider>
-        <Navbar setSearchTerm={setSearchTerm} />
-      </ModalProvider>
+      <Navbar setSearchTerm={setSearchTerm} />
       <Theme />
       <Loading />
       <Routes>
@@ -33,6 +31,7 @@ function App() {
           </PrivateRoute>
         }></Route>
       </Routes>
+      <Footer />
     </>
   );
 }

@@ -6,11 +6,17 @@ import { useLoading } from '../hooks/useLoading';
 import useMounted from '../hooks/useMounted';
 import { useTheme } from '../hooks/useTheme';
 import { useDoc } from '../hooks/useDoc';
+import { useAuth } from '../context/AuthContext'
+import { useModal } from '../hooks/useModal';
+import AuthModal from './AuthModal'
+import DummyContent from './DummyContent'
+import LoginAlertModal from './LoginAlertModal'
 import "./css/Recipecook.css"
 
 const Recipecook = () => {
   const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const { mode } = useTheme();
+  const { currentUser } = useAuth();
   const { setContentIsReady } = useLoading();
   const navigate = useNavigate();
   const { recipeid } = useParams();
@@ -18,6 +24,8 @@ const Recipecook = () => {
   const [remountCount, setRemountCount] = useState(0)
   const mountedStatus = useMounted();
   const [displayName, setDisplayName] = useState('');
+  const { openModal, setOpenModal, setModalContent } = useModal();
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -49,9 +57,29 @@ const Recipecook = () => {
 
   }, [recipe, setContentIsReady, remountCount])
 
-  function edit() {
-    navigate(`/createrecipe/${recipeid}`, { state: recipe })
+  async function edit() {
+    try {
+      if (!currentUser) {
+        setModalContent(<LoginAlertModal />)
+        return setOpenModal(!openModal)
+      }
+      const docSnap = await getDoc(doc(db, "users", currentUser.uid));
+      const userData = docSnap.data()
+      if (recipe.authorUid === currentUser.uid || userData.role === 'admin') {
+        navigate(`/createrecipe/${recipeid}`, { state: recipe })
+      }
+      else {
+        setModalContent(<AuthModal message="You can only edit your own recipe." />)
+        setOpenModal(!openModal)
+      }
+    }
+    catch (err) {
+      alert("Failed to edit recipe!", err.message)
+    }
   }
+  const addLinebreaks = (anyString) => {
+    return anyString.replaceAll("\n", "<br/>\r\n");
+  };
 
   return (
     recipe ? (
@@ -65,16 +93,26 @@ const Recipecook = () => {
             </div>
             {
               (recipe.createdTime.seconds === recipe.lastEditedTime.seconds) ?
-                <p>Created on {`${monthName[recipe.createdTime.toDate().getMonth()]} ${recipe.createdTime.toDate().getDate()},${recipe.createdTime.toDate().getFullYear()}`} by {displayName}</p> :
-                <p>Updated on {`${monthName[recipe.lastEditedTime.toDate().getMonth()]} ${recipe.lastEditedTime.toDate().getDate()},${recipe.lastEditedTime.toDate().getFullYear()}`} by {displayName}</p>
+                <p className={`${mode}`}>Created on {`${monthName[recipe.createdTime.toDate().getMonth()]} ${recipe.createdTime.toDate().getDate()},${recipe.createdTime.toDate().getFullYear()}`} by {displayName}</p> :
+                <p className={`${mode}`}>Updated on {`${monthName[recipe.lastEditedTime.toDate().getMonth()]} ${recipe.lastEditedTime.toDate().getDate()},${recipe.lastEditedTime.toDate().getFullYear()}`} by {displayName}</p>
             }
-            <p>{recipe.ingredients.join(', ')}</p>
-            <p >{recipe.method}</p>
+            <div className="cookingDescription">
+              <h3>Ingredients</h3>
+              <div className="cookingDescription-ing">
+                <ul style={{ listStylePosition: 'inside' }}>
+                  {recipe.ingredients.map((elements, index) => {
+                    return <li key={index}>{elements}</li>
+                  })}
+                </ul>
+              </div>
+              <h3>How to make {recipe.title}</h3>
+              <p>{addLinebreaks(recipe.method).split('<br/>').reduce((arr, elem, index) => { arr.push(elem, <br key={index} />); return arr }, [])}</p>
+            </div>
           </div>
           <i onClick={edit} className="fas fa-pen"></i>
         </div>
       </div>) :
-      <></>
+      <DummyContent />
   )
 }
 

@@ -8,6 +8,7 @@ import useMounted from '../hooks/useMounted';
 import { useTheme } from '../hooks/useTheme';
 import AnimatedInput from './AnimatedInput';
 import './css/UserDashboard.css'
+import DummyContent from './DummyContent';
 
 const UserDashboard = () => {
   const navigate = useNavigate();
@@ -71,7 +72,7 @@ const UserDashboard = () => {
           <button style={{ backgroundColor: `${navColor}` }} onClick={userLogout}>Logout</button>
         </div>
       </div >) :
-      <></>
+      <DummyContent />
   )
 }
 

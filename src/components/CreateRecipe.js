@@ -96,11 +96,11 @@ const CreateRecipe = () => {
   const { title, method, time, ingredients, imageUrl } = values;
 
   const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
     if (name === 'imageUrl') {
       setUploadStatus({ ...uploadStatus, progress: 0 })
       optimizeFile(event.target.files[0], setCompressedFile)
     }
+    setValues({ ...values, [name]: event.target.value });
   }
 
   function addItem(e) {
@@ -264,6 +264,7 @@ const CreateRecipe = () => {
     e.preventDefault();
     e.target.textContent === 'Yes' ? setResponseImageEdit(true) : setResponseImageEdit(false)
   }
+
   return (
     <div className="recipeform" onSubmit={handleSubmit}>
       <form >

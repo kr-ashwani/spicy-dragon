@@ -61,7 +61,8 @@ const SigninInformation = ({ userInfo }) => {
         photoURL: imgUrl,
         creationTime: Timestamp.fromDate(new Date()),
         lastSignInTime: Timestamp.fromDate(new Date()),
-        recipeAdded: null
+        recipeAdded: null,
+        role: 'user'
       }
       await setDoc(doc(db, "users", user.uid), userData)
       setOpenModal(!openModal)

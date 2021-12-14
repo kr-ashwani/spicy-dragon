@@ -30,7 +30,8 @@ const LoginWithPopUp = ({ message, setMessage }) => {
         photoURL: user.photoURL.replace('s96-c', 's400-c'),
         creationTime: Timestamp.fromDate(new Date(user.metadata.creationTime)),
         lastSignInTime: Timestamp.fromDate(new Date()),
-        recipeAdded: null
+        recipeAdded: null,
+        role: "user"
       }
       await setDoc(doc(db, "users", user.uid), userData)
       setOpenModal(!openModal)

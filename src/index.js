@@ -8,15 +8,16 @@ import { AuthProvider } from './context/AuthContext';
 import { LoadingProvider } from './context/LoadingContext';
 import { RecipeListProvider } from './context/RecipeListContext';
 import { combineProviders } from './utility_js/combineProviders'
+import { ModalProvider } from './context/ModalContext';
 
 const Providers = combineProviders([
   BrowserRouter,
   RecipeListProvider,
   ThemeProvider,
   AuthProvider,
-  LoadingProvider
+  LoadingProvider,
+  ModalProvider
 ])
-console.dir(Providers);
 
 ReactDOM.render(
   <Providers>

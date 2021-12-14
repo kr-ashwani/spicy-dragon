@@ -3,28 +3,46 @@ import { deleteObject, ref } from '@firebase/storage'
 import React from 'react'
 import { useNavigate } from 'react-router'
 import { db, storage } from '../firebase/firebaseConfig'
+import { useModal } from '../hooks/useModal'
+import AuthModal from './AuthModal'
+import LoginAlertModal from './LoginAlertModal'
 import { useTheme } from '../hooks/useTheme'
 import './css/Recipe.css'
+import { useAuth } from '../context/AuthContext'
 
 function Recipe({ recipe, id }) {
   const { mode } = useTheme();
   const navigate = useNavigate()
   const { navColor } = useTheme();
+  const { currentUser } = useAuth();
+  const { openModal, setOpenModal, setModalContent } = useModal();
 
   function cookFunction() {
     navigate(`/recipe/${id}`)
   }
   async function removeRecipe() {
     try {
-      let deleteCnf = window.confirm("Are you sure you want to delete recipe?")
-      if (deleteCnf) {
-        const docSnap = await getDoc(doc(db, "recipe_list", id));
-        if (docSnap.exists()) {
-          const recipeData = docSnap.data();
-          const imgRef = ref(storage, recipeData.recipeImagePath);
-          await deleteObject(imgRef)
-          await deleteDoc(doc(db, 'recipe_list', id));
+      if (!currentUser) {
+        setModalContent(<LoginAlertModal />)
+        return setOpenModal(!openModal)
+      }
+      const docSnap = await getDoc(doc(db, "users", currentUser.uid));
+      const userData = docSnap.data()
+      if (recipe.authorUid === currentUser.uid || userData.role === 'admin') {
+        let deleteCnf = window.confirm("Are you sure you want to delete recipe?")
+        if (deleteCnf) {
+          const docSnap = await getDoc(doc(db, "recipe_list", id));
+          if (docSnap.exists()) {
+            const recipeData = docSnap.data();
+            const imgRef = ref(storage, recipeData.recipeImagePath);
+            await deleteObject(imgRef)
+            await deleteDoc(doc(db, 'recipe_list', id));
+          }
         }
+      }
+      else {
+        setModalContent(<AuthModal message="You can only delete your own recipe." />)
+        setOpenModal(!openModal)
       }
     }
     catch (err) {

@@ -94,6 +94,9 @@
   .recipe_item:hover > .fa-trash-alt {
     animation: none;
   }
+  .recipe_item:hover {
+    transform: scale(1);
+  }
   .fa-trash-alt {
     transform: translate(-50%, 50%);
   }
