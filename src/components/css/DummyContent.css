@@ -1,9 +1,9 @@
 .dummy-content {
-  min-height: calc(100vh - 210px);
+  min-height: calc(100vh - 110px - var(--footer-size));
 }
 
 @media screen and (max-width: 700px) {
   .dummy-content {
-    min-height: calc(100vh - 260px);
+    min-height: calc(100vh - 110px - var(--footer-size) - 50px);
   }
 }

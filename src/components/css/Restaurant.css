@@ -3,7 +3,7 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   /* grid-auto-rows: 1fr; */
 
-  min-height: calc(100vh - 290px);
+  min-height: calc(100vh - 110px - var(--footer-size) - 80px);
   max-width: 1200px;
   margin: 30px auto 50px;
   padding: 0 30px;

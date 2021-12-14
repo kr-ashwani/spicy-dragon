@@ -43,7 +43,7 @@
   border-radius: 5px;
   outline: 0;
   border: 1px solid rgb(212, 209, 209);
-  margin: 30px auto;
+  margin: 30px auto 50px;
   padding: 7px 15px;
   cursor: pointer;
   transition: background-color 400ms ease-in-out;
