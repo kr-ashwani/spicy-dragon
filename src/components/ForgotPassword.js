@@ -28,7 +28,8 @@ const ForgotPassword = ({ setForgotPassword }) => {
       warning: null
     });
   }, [values])
-  async function sendEmail() {
+  async function sendEmail(e) {
+    e.preventDefault()
     try {
       setIsLoading(!isLoading)
       await forgotPassword(email)
