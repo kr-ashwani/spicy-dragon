@@ -1,5 +1,5 @@
 .animatedInput input {
-  padding-right: 30px !important;
+  padding-right: 15px !important;
   font-size: 1rem;
   color: #000;
   transition: color 200ms ease-in-out;
@@ -117,11 +117,5 @@
   100% {
     z-index: 2;
     opacity: 0;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .animatedInput input {
-    width: 150px;
   }
 }
