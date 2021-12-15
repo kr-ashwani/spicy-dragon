@@ -12,6 +12,7 @@ import AuthModal from './AuthModal'
 import DummyContent from './DummyContent'
 import LoginAlertModal from './LoginAlertModal'
 import "./css/Recipecook.css"
+import ConfirmationAlert from './ConfirmationAlert';
 
 const Recipecook = () => {
   const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -25,6 +26,7 @@ const Recipecook = () => {
   const mountedStatus = useMounted();
   const [displayName, setDisplayName] = useState('');
   const { openModal, setOpenModal, setModalContent } = useModal();
+  const [editRecipe, setEditRecipe] = useState(false);
 
 
   useEffect(() => {
@@ -57,6 +59,12 @@ const Recipecook = () => {
 
   }, [recipe, setContentIsReady, remountCount])
 
+  useEffect(() => {
+    if (editRecipe)
+      navigate(`/createrecipe/${recipeid}`, { state: recipe })
+
+  }, [editRecipe, recipeid, recipe, navigate])
+
   async function edit() {
     try {
       if (!currentUser) {
@@ -66,7 +74,11 @@ const Recipecook = () => {
       const docSnap = await getDoc(doc(db, "users", currentUser.uid));
       const userData = docSnap.data()
       if (recipe.authorUid === currentUser.uid || userData.role === 'admin') {
-        navigate(`/createrecipe/${recipeid}`, { state: recipe })
+        setModalContent(<ConfirmationAlert
+          message="Are you sure you want to edit recipe ?"
+          setEditRecipe={setEditRecipe}
+        />)
+        setOpenModal(true)
       }
       else {
         setModalContent(<AuthModal message="You can only edit your own recipe." />)

@@ -1,0 +1,16 @@
+.modal-info .confirm {
+  margin: 15px 15px 5px 0;
+  display: flex;
+  gap: 30px;
+  font-weight: 600;
+  justify-content: flex-end;
+}
+.modal-info .confirm p {
+  user-select: none;
+  cursor: pointer;
+}
+@media screen and (max-width: 400px) {
+  .modal-info {
+    margin: 0 10px;
+  }
+}

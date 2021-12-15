@@ -13,7 +13,7 @@ const AuthModal = ({ message }) => {
   }
   return (
     <div className='modal-info'>
-      <h3 >warning</h3>
+      <h3 >Permission Alert</h3>
       <p>{message}</p>
       <p>Please contact Ashwani😎 for admin role.</p>
       <button onClick={closeModal} style={{ backgroundColor: `${navColor}` }}>OK</button>

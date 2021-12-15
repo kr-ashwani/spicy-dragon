@@ -19,8 +19,6 @@ const Loading = () => {
     if (renderCount.current === 1)
       return
 
-    console.log("content is ready ", contentIsReady);
-
     if (contentIsReady) {
       loadingContainerRef.current.classList.remove('started')
       loadingContainerRef.current.classList.add('completed')
