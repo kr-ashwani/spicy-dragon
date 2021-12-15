@@ -90,3 +90,16 @@
     margin: 20px auto 35px;
   }
 }
+
+@media screen and (max-width: 400px) {
+  .userDetail {
+    column-gap: 10px;
+    padding: 15px 10px;
+  }
+  .dashboard {
+    gap: 40px;
+  }
+  .userInformation > button {
+    margin: 20px auto 35px;
+  }
+}
