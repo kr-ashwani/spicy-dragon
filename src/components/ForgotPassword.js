@@ -48,18 +48,19 @@ const ForgotPassword = ({ setForgotPassword }) => {
       </button>
       <h2>Forgot Password?</h2>
       <p>An E-mail regarding password reset will be sent. please check your inbox.</p>
-      <div className="verifyEmail">
-        <Alert message={message} />
-        <label htmlFor="email">Email:</label>
-        <input required id="email" type="email" value={email} onChange={handleChange("email")} />
-        {
-          !isLoading ?
-            <button onClick={sendEmail} className="signin" style={{ backgroundColor: `${navColor}`, color: "#fff" }} >Submit</button>
-            : <button disabled className="signin loading" style={{ width: "72px", height: "30px", backgroundColor: `${navColor}40`, color: "#fff" }} ><CircularProgress style={{ width: "15px", height: "15px" }} /></button>
-        }
-
-      </div>
-    </div>
+      <form onSubmit={sendEmail}>
+        <div className="verifyEmail">
+          <Alert message={message} />
+          <label htmlFor="email">Email:</label>
+          <input required id="email" type="email" value={email} onChange={handleChange("email")} />
+          {
+            !isLoading ?
+              <button className="signin" style={{ backgroundColor: `${navColor}`, color: "#fff" }} >Submit</button>
+              : <button disabled className="signin loading" style={{ width: "72px", height: "30px", backgroundColor: `${navColor}40`, color: "#fff" }} ><CircularProgress style={{ width: "15px", height: "15px" }} /></button>
+          }
+        </div>
+      </form>
+    </div >
   )
 }
 
