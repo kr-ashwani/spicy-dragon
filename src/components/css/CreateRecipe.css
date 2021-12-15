@@ -1,5 +1,5 @@
 .recipeform {
-  min-height: calc(100vh - 310px);
+  min-height: calc(100vh - 110px - var(--footer-size) - 100px);
   width: 100%;
   max-width: 400px;
   margin: 50px auto;

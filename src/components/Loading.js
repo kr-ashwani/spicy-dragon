@@ -7,6 +7,30 @@ const Loading = () => {
   const { contentIsReady } = useLoading();
   const { mode } = useTheme()
   const loadingContainerRef = useRef()
+  const renderCount = useRef(0)
+
+  useEffect(() => {
+    if (renderCount.current === 2)
+      return
+    renderCount.current += 1;
+  })
+
+  useEffect(() => {
+    if (renderCount.current === 1)
+      return
+
+    console.log("content is ready ", contentIsReady);
+
+    if (contentIsReady) {
+      loadingContainerRef.current.classList.remove('started')
+      loadingContainerRef.current.classList.add('completed')
+    }
+    else {
+      loadingContainerRef.current.classList.remove('completed')
+      loadingContainerRef.current.classList.add('started')
+    }
+
+  }, [contentIsReady])
 
   useEffect(() => {
     const circleArray = Array.from(loadingContainerRef.current.childNodes[0].children)
@@ -22,16 +46,7 @@ const Loading = () => {
         element.classList.remove('dark')
       })
     }
-    if (contentIsReady) {
-      loadingContainerRef.current.classList.remove('started')
-      loadingContainerRef.current.classList.add('completed')
-    }
-    else {
-      loadingContainerRef.current.classList.remove('completed')
-      loadingContainerRef.current.classList.add('started')
-    }
-
-  }, [contentIsReady, mode])
+  }, [mode])
 
   return (
     <div ref={loadingContainerRef} className={`loading-container`}>

@@ -48,10 +48,10 @@ const SigninInformation = ({ userInfo }) => {
         return setMessage({ ...message, error: `Gender field is empty` })
       setValues({ ...values, error: "" })
       setIsLoading(!isLoading)
+      const userCredentials = await signup(userInfo.email, userInfo.password);
       let imgPath = values.gender === 'male' ? `cartoon avatars/men${Math.floor(Math.random() * 8 + 1)}.jpeg` : `cartoon avatars/woman${Math.floor(Math.random() * 8 + 1)}.jpeg`;
 
       const imgUrl = await getDownloadURL(ref(storage, imgPath))
-      const userCredentials = await signup(userInfo.email, userInfo.password);
       const user = userCredentials.user;
       const userData = {
         email: user.email,

@@ -7,7 +7,8 @@
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 10;
+  opacity: 0;
+  z-index: -1;
   top: calc(50%);
   left: calc(50vw - 50px);
   transition: background-color 400ms ease-in-out;
@@ -98,6 +99,7 @@
   0% {
     transform: translatey(0);
     opacity: 1;
+    z-index: 10;
   }
   100% {
     transform: translatey(50px);

@@ -106,7 +106,7 @@ const Recipecook = () => {
                 </ul>
               </div>
               <h3>How to make {recipe.title}</h3>
-              <p>{addLinebreaks(recipe.method).split('<br/>').reduce((arr, elem, index) => { arr.push(elem, <br key={index} />); return arr }, [])}</p>
+              <p>{addLinebreaks(recipe.method).split('<br/>').reduce((arr, elem, index) => { arr.push(elem.trim(), <br key={index} />); return arr }, [])}</p>
             </div>
           </div>
           <i onClick={edit} className="fas fa-pen"></i>

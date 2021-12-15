@@ -4,7 +4,7 @@ const LoadingContext = React.createContext();
 
 
 const LoadingProvider = ({ children }) => {
-  const [contentIsReady, setContentIsReady] = useState(false);
+  const [contentIsReady, setContentIsReady] = useState(true);
 
   return (
     <LoadingContext.Provider value={{ contentIsReady, setContentIsReady }}>

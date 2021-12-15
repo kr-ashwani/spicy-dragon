@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: calc(100vh - 110px - var(--footer-size));
 }
 .dashboard .MuiAvatar-root {
   animation: profileImg 400ms ease-out;

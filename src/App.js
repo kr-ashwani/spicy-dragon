@@ -11,6 +11,7 @@ import UserDashboard from './components/UserDashboard';
 import PrivateRoute from './PrivateRoute';
 import Loading from './components/Loading';
 import Footer from './components/Footer';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,6 +31,7 @@ function App() {
             <UserDashboard />
           </PrivateRoute>
         }></Route>
+        <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
       <Footer />
     </>

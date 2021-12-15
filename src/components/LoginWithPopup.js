@@ -18,7 +18,6 @@ const LoginWithPopUp = ({ message, setMessage }) => {
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
 
-      console.log(docSnap.data());
       if (docSnap.exists())
         return setOpenModal(!openModal)
 

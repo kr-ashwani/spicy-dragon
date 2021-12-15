@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useLoading } from '../hooks/useLoading';
-import useMounted from '../hooks/useMounted';
 import { useRecipeList } from '../hooks/useRecipeList';
 import { useTheme } from '../hooks/useTheme';
 import "./css/Restaurant.css"
@@ -13,23 +12,15 @@ const Restaurant = ({ searchTerm }) => {
   const { mode } = useTheme();
   const { recipeList } = useRecipeList()
   let filteredList = recipeList && recipeList.filter((recipe) => recipe.title.toLowerCase().includes(searchTerm.trim().toLowerCase()))
-  const [remountCount, setRemountCount] = useState(0)
-  const mountedStatus = useMounted();
 
   useEffect(() => {
-    setTimeout(() => {
-      if (mountedStatus.current)
-        setRemountCount(1);
-    }, 500)
-  }, [setRemountCount, mountedStatus])
+    setContentIsReady(false)
+  }, [setContentIsReady])
 
   useEffect(() => {
-    if (remountCount === 1 && recipeList === null)
-      setContentIsReady(false)
-    else if (recipeList)
+    if (recipeList)
       setContentIsReady(true)
-
-  }, [recipeList, setContentIsReady, remountCount])
+  }, [recipeList, setContentIsReady])
 
   return (
     recipeList ? (<div className={`recipelist ${mode}`} >
