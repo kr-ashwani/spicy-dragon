@@ -78,7 +78,7 @@ const ResetPassword = () => {
         </div>
         <div className="field">
           <label className={`${mode}`} htmlFor="confirmPassword">Confirm New Password:</label>
-          <input required autoComplete="off" onChange={handleChange("confirmPassword")} value={confirmPassword} type="text" id="confirmPassword" name="confirmPassword" />
+          <input required autoComplete="off" onChange={handleChange("confirmPassword")} value={confirmPassword} type="password" id="confirmPassword" name="confirmPassword" />
         </div>
         <Alert message={message} />
         {
