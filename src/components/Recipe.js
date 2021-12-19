@@ -34,11 +34,12 @@ function Recipe({ recipe, id }) {
       if (docSnap.exists()) {
         const recipeData = docSnap.data();
         const imgRef = ref(storage, recipeData.recipeImagePath);
-        await updateDoc(doc(db, "users", currentUser.uid), {
+
+        await updateDoc(doc(db, "users", recipeData.authorUid), {
           recipeAdded: arrayRemove(id),
         });
-        await deleteObject(imgRef);
         await deleteDoc(doc(db, "recipe_list", id));
+        await deleteObject(imgRef);
       }
     }
     if (deleteRecipe === true) {
