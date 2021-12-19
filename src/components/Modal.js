@@ -18,6 +18,7 @@ const LoginModal = ({ children }) => {
     }
   }, [openModal, setOpenModal]);
 
+
   return (
     <div ref={container} className="modalContainer">
       {children}
