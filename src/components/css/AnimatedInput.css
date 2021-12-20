@@ -1,7 +1,7 @@
 .animatedInput input {
   padding-right: 15px !important;
   font-size: 1rem;
-  color: #000 !important;
+  color: #000;
   -webkit-text-fill-color: #000;
   opacity: 1;
   transition: color 200ms ease-in-out;
