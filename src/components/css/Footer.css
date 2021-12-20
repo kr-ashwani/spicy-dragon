@@ -1,6 +1,3 @@
-:root {
-  --footer-size: 60px;
-}
 footer {
   height: var(--footer-size);
   position: relative;

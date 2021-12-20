@@ -1,9 +1,3 @@
-:root {
-  --purple: #57249c;
-  --red: #b90234;
-  --green: #249c6d;
-}
-
 .theme {
   position: relative;
   max-width: 1200px;

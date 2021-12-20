@@ -38,6 +38,7 @@ function Recipe({ recipe, id }) {
         await updateDoc(doc(db, "users", recipeData.authorUid), {
           recipeAdded: arrayRemove(id),
         });
+
         await deleteDoc(doc(db, "recipe_list", id));
         await deleteObject(imgRef);
       }
