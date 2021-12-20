@@ -48,6 +48,10 @@ const Recipecook = () => {
   }, [setRemountCount, mountedStatus]);
 
   useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
+  useEffect(() => {
     async function helperName() {
       if (recipe.createdTime.seconds === recipe.lastEditedTime.seconds) {
         const docSnap = await getDoc(doc(db, "users", recipe.authorUid));
