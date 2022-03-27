@@ -26,12 +26,16 @@
   height: 0.6rem;
   background-color: #fff;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 .solidBar {
-  transform-origin: left;
-  transition: transform 2s ease-in-out, background-color 400ms ease-in-out;
-  transform: scaleX(0);
+  /* transform-origin: left; */
   height: 1rem;
+  width: 0%;
+  transition: transform 2s ease-in-out, background-color 400ms ease-in-out,
+    width 2s ease-in-out;
+  /* transform: scaleX(0); */
   background-color: var(--navColor);
 }
 .uploadpercent {

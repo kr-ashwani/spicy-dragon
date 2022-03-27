@@ -12,7 +12,7 @@ import Alert from './Alert';
 import './css/CreateRecipe.css'
 import UploadProgress from './UploadProgress';
 
-const CreateRecipe = () => {
+const         CreateRecipe = () => {
   const location = useLocation()
   const { setContentIsReady } = useLoading();
   const { navColor, mode } = useTheme();

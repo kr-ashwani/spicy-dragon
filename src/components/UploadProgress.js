@@ -28,8 +28,9 @@ const UploadProgress = ({ uploadStatus, setUploadStatus }) => {
 
   useEffect(() => {
     progressBar.current.style.setProperty(
-      "transform",
-      `scaleX(${status / 100})`
+      "width",
+      `${status}%`
+      // `scaleX(${status / 100})`
     );
     if (uploadStatus.progress < 100) setProcess(false);
     else if (uploadStatus.progress === 100 && uploadStatus.state === "running")
